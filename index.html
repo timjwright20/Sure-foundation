@@ -26,26 +26,21 @@ select option{background:#222;}
 .btn-gold{background:linear-gradient(135deg,#ffd700,#ff8c00);color:#000;}
 .btn-red{background:linear-gradient(135deg,#e05c5c,#c43c4a);color:#fff;}
 .btn-blue{background:linear-gradient(135deg,#4a84d4,#2a64b4);color:#fff;}
-.btn-green{background:linear-gradient(135deg,#5aab6a,#3a8b4a);color:#fff;}
 .btn-row{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:10px;}
-/* Player count selector */
 .pcount-row{display:flex;gap:10px;margin-bottom:14px;}
 .pcount-btn{flex:1;padding:12px;border-radius:10px;border:2px solid rgba(255,255,255,.2);background:rgba(255,255,255,.07);color:#aaa;font-size:1.1rem;font-weight:700;cursor:pointer;transition:all .2s;font-family:'Nunito',sans-serif;}
 .pcount-btn.selected{border-color:#ffd700;background:rgba(255,215,0,.15);color:#ffd700;}
 .pcount-btn:hover{border-color:#ffd700;color:#ffd700;}
-/* Score cards */
 .score-cards{display:flex;gap:12px;margin-bottom:16px;flex-wrap:wrap;justify-content:center;}
 .sc{text-align:center;padding:10px 18px;background:rgba(255,255,255,.08);border-radius:14px;border:2px solid transparent;transition:border-color .3s;}
 .sc.active{border-color:#ffd700;background:rgba(255,215,0,.12);}
 .sc-name{color:#aaa;font-size:.78rem;margin-bottom:3px;}
 .sc-pts{font-size:2rem;font-weight:900;color:#ffd700;}
-/* Wheel */
 .spin-wrap{position:relative;width:min(360px,86vw);height:min(360px,86vw);margin:10px 0;}
 .spin-pointer{position:absolute;top:-20px;left:50%;transform:translateX(-50%);font-size:2.2rem;filter:drop-shadow(0 2px 4px rgba(0,0,0,.5));}
 #wheelCanvas{width:100%;height:100%;border-radius:50%;box-shadow:0 0 50px rgba(255,215,0,.2);}
 .spin-player{font-size:1.1rem;color:#ffd700;font-weight:700;margin:12px 0 6px;}
 .round-label{color:#aaa;margin-bottom:8px;}
-/* Question screen */
 .q-topbar{display:flex;justify-content:space-between;align-items:center;width:100%;max-width:860px;margin-bottom:12px;gap:10px;}
 .cat-badge{padding:7px 16px;border-radius:20px;font-weight:700;font-size:.9rem;}
 .timer-wrap{position:relative;width:72px;height:72px;flex-shrink:0;}
@@ -66,21 +61,19 @@ select option{background:#222;}
 .q-box{background:rgba(255,255,255,.07);border-radius:14px;padding:20px;max-width:860px;width:100%;margin-bottom:14px;line-height:1.65;}
 .how-would{color:#ffd700;font-weight:700;font-size:.95rem;margin-bottom:9px;}
 .q-text{font-size:.94rem;color:#ddd;}
-.ans-area{width:100%;max-width:860px;}
-textarea{min-height:100px;resize:vertical;}
-.mic-row{display:flex;gap:10px;align-items:flex-start;width:100%;}
-.mic-row textarea{flex:1;}
-.mic-btn{flex-shrink:0;width:54px;height:54px;border-radius:50%;border:none;font-size:1.5rem;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;margin-top:0;}
-.mic-btn.idle{background:rgba(255,255,255,.12);color:#fff;}
-.mic-btn.idle:hover{background:rgba(255,215,0,.25);transform:scale(1.08);}
-.mic-btn.listening{background:linear-gradient(135deg,#e05c5c,#c43c4a);color:#fff;animation:micpulse 1s infinite alternate;box-shadow:0 0 0 0 rgba(224,92,92,.5);}
-@keyframes micpulse{from{box-shadow:0 0 0 0 rgba(224,92,92,.5)}to{box-shadow:0 0 0 12px rgba(224,92,92,0)}}
-.mic-status{font-size:.78rem;text-align:center;margin-top:4px;height:16px;}
-/* Timer status bar */
 .timer-status{width:100%;max-width:860px;background:rgba(255,255,255,.06);border-radius:8px;padding:7px 14px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;font-size:.82rem;}
 .timer-status .ts-label{color:#aaa;}
-.timer-status .ts-val{font-weight:700;}
-/* Feedback overlay */
+.ans-area{width:100%;max-width:860px;}
+.mic-row{display:flex;gap:10px;align-items:flex-start;width:100%;}
+.mic-row textarea{flex:1;min-height:100px;resize:vertical;margin-bottom:0;}
+.mic-btn{flex-shrink:0;width:56px;height:56px;border-radius:50%;border:3px solid rgba(255,255,255,.2);font-size:1.6rem;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.08);color:#fff;font-family:'Nunito',sans-serif;}
+.mic-btn:hover:not(:disabled){border-color:#ffd700;background:rgba(255,215,0,.15);transform:scale(1.08);}
+.mic-btn.listening{background:linear-gradient(135deg,#e05c5c,#c43c4a);border-color:#e05c5c;animation:micpulse 1s infinite alternate;}
+.mic-btn:disabled{opacity:.4;cursor:not-allowed;}
+@keyframes micpulse{from{box-shadow:0 0 0 0 rgba(224,92,92,.5)}to{box-shadow:0 0 0 14px rgba(224,92,92,0)}}
+.mic-status{font-size:.78rem;color:#aaa;min-height:18px;margin-top:5px;margin-bottom:6px;}
+.mic-status.active{color:#e05c5c;}
+.mic-status.done{color:#5aab6a;}
 .fb-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.7);display:flex;align-items:center;justify-content:center;z-index:100;padding:20px;}
 .fb-box{background:#1a1a2e;border-radius:20px;padding:28px;max-width:620px;width:100%;text-align:center;box-shadow:0 10px 60px rgba(0,0,0,.6);max-height:90vh;overflow-y:auto;}
 .fb-emoji{font-size:3.2rem;margin-bottom:8px;}
@@ -89,7 +82,6 @@ textarea{min-height:100px;resize:vertical;}
 .fb-apol{background:rgba(255,255,255,.07);border-radius:10px;padding:14px;text-align:left;margin-bottom:10px;}
 .fb-apol h4{color:#ffd700;margin-bottom:7px;font-size:.9rem;}
 .fb-apol p{color:#ccc;font-size:.88rem;line-height:1.55;}
-/* Bonus */
 .bonus-title{font-size:1.9rem;font-weight:900;color:#ffd700;margin-bottom:6px;}
 .bonus-sub{color:#aaa;margin-bottom:18px;text-align:center;max-width:580px;}
 .bonus-ctx{background:rgba(255,255,255,.07);border-radius:10px;padding:13px;max-width:680px;width:100%;margin-bottom:18px;color:#ddd;font-size:.88rem;font-style:italic;}
@@ -98,7 +90,6 @@ textarea{min-height:100px;resize:vertical;}
 .scr-opt.correct{border-color:#5aab6a !important;background:rgba(90,171,106,.2) !important;}
 .scr-opt.wrong{border-color:#e05c5c !important;background:rgba(224,92,92,.2) !important;}
 .scr-opt:disabled{cursor:default;}
-/* Final */
 .trophy{font-size:5rem;animation:bounce 1s infinite;}
 @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-16px)}}
 .winner-name{font-size:clamp(1.7rem,5vw,2.6rem);font-weight:900;background:linear-gradient(to right,#ffd700,#ff8c00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin:7px 0 18px;}
@@ -109,7 +100,6 @@ textarea{min-height:100px;resize:vertical;}
 .fpc-rank{font-size:1.4rem;margin-bottom:4px;}
 .cat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:9px;max-width:780px;width:100%;}
 .cat-row{background:rgba(255,255,255,.07);border-radius:9px;padding:10px 13px;display:flex;justify-content:space-between;align-items:center;font-size:.82rem;}
-/* Misc */
 .confetti-canvas{position:fixed;top:0;left:0;pointer-events:none;z-index:200;}
 .red-flash{position:fixed;top:0;left:0;right:0;bottom:0;pointer-events:none;z-index:150;transition:background .3s;}
 .admin-label{display:block;color:#aaa;margin-top:12px;margin-bottom:4px;font-size:.86rem;}
@@ -123,8 +113,8 @@ textarea{min-height:100px;resize:vertical;}
 <script type="text/babel">
 const { useState, useEffect, useRef, useCallback } = React;
 
-const TIMER_TOTAL = 600;   // 10 minutes in seconds
-const FULL_PTS_UNTIL = 300; // full points for first 5 minutes
+const TIMER_TOTAL = 600;
+const FULL_PTS_UNTIL = 300;
 
 const CATS = [
   {id:0,name:"Book of Mormon",emoji:"📖",col:"#e05c5c"},
@@ -152,17 +142,23 @@ const INIT_QS = [
   {id:10,cat:4,q:"The Book of Mormon in 2 Nephi 5:21 describes a skin of blackness as a curse placed upon the Lamanites for rebellion against God. The pre-1981 edition of 2 Nephi 30:6 promised that repentant Lamanites would become white and delightsome. In 1981 the Church quietly changed this phrase to pure and delightsome without formal announcement. Critics argue these passages establish a foundational racial theology connecting dark skin to divine punishment and spiritual inferiority, which shaped the priesthood ban and reflects 19th-century racist worldview rather than divine revelation.",ans:"LDS apologists argue that skin of blackness in the Book of Mormon's specific covenant narrative context refers to a spiritual or cultural mark of separation rather than literal racial skin color — functioning as a covenantal sign, not a declaration of racial hierarchy. Many Old Testament texts use similar mark language in explicitly non-racial ways. Scholars like Brant Gardner and Terryl Givens argue the text describes covenant status and cultural distinctiveness. The Church's Gospel Topics Essay explicitly and unequivocally disavows any theology linking dark skin color to divine punishment or racial inferiority of any kind.",scr:"Galatians 3:28",scrN:"Neither Jew nor Greek in Christ — Paul's foundational declaration that covenant status transcends all ethnic distinctions",wrong:["Numbers 12:10","Revelation 3:18"]},
   {id:11,cat:5,q:"A 2019 whistleblower complaint alleged that Ensign Peak Advisors — the LDS Church's primary investment arm — had accumulated approximately 100 billion dollars in assets, vastly exceeding anything needed for legitimate charitable or religious purposes. In 2023, the SEC fined the Church and Ensign Peak a combined 9 million dollars specifically for deliberately using 13 shell companies to conceal the true massive size of their investment portfolio from regulators and the investing public. Critics argue this financial opacity, the enormous scale of accumulation, and the SEC enforcement action are fundamentally incompatible with the Church's public teachings about tithing, consecration, and transparency.",ans:"LDS apologists argue the Church has a legitimate and thoroughly biblical basis for building substantial financial reserves — the Joseph in Egypt model of accumulating reserves during prosperity to prepare for catastrophic future crises, including potential government persecution the Church has historically faced. The Church stated its reserves were built for major catastrophic eventualities. Regarding the SEC matter, the Church acknowledged the administrative violation while maintaining the underlying purpose was protective institutional privacy rather than financial fraud. The Church also provides significant global humanitarian aid through LDS Philanthropies and the extensive Bishop's Storehouse welfare system.",scr:"Genesis 41:34",scrN:"Joseph stored 20% of grain during years of plenty to prepare for the coming famine — the direct scriptural precedent for building substantial financial reserves against future crises",wrong:["Matthew 19:21","Luke 16:13"]},
   {id:12,cat:5,q:"Critics highlight the stark contrast between the LDS Church's reported investment reserves of over 100 billion dollars and its reportedly modest humanitarian aid spending — some estimates placing it at less than 1% of total assets annually. The Church simultaneously requires a full 10% tithe of gross income as a strict prerequisite for temple attendance, applied equally to economically impoverished members in developing nations where 10% represents a very significant sacrifice. Critics argue demanding a significant tithe from economically vulnerable members while sitting on vast investment reserves represents a fundamental contradiction of the Church's stated values.",ans:"LDS apologists defend tithing as a fundamental spiritual covenant that produces genuine blessings — spiritual, temporal, and communal — for participants regardless of financial circumstances. It is understood theologically as an act of faith and covenant fidelity, not institutional fundraising. The Church provides significant humanitarian aid globally through LDS Philanthropies, the Bishop's Storehouse welfare system, and Deseret Industries. The New Testament principle of the widow's mite teaches that sacrificial giving carries profound spiritual value independent of the absolute dollar amount given or the relative wealth of the receiving institution.",scr:"Malachi 3:10",scrN:"Bring all the tithes into the storehouse and prove me herewith — the foundational Old Testament covenant commandment that forms the direct scriptural basis of the LDS law of tithing",wrong:["Luke 21:1","Matthew 23:23"]},
-  {id:13,cat:6,q:"In November 2015 the LDS Church updated its official handbook to classify members in same-sex marriages as apostates subject to formal disciplinary councils, and prohibited the minor children of same-sex couples from receiving baptism or baby blessings until they turned 18. Mental health professionals and LGBTQ advocates widely condemned this policy, arguing it unjustly punished innocent children for their parents' relationship and contributed to documented increases in depression and suicide among LGBTQ Latter-day Saints. The policy was reversed in April 2019. Critics argue both the policy and its reversal demonstrate Church leaders are responding to social pressure, not divine revelation.",ans:"LDS apologists note the policy was never intended to punish children but was an attempt to prevent painful spiritual conflict within households where children would be simultaneously taught in Church that same-sex marriage was contrary to God's law and at home that their parents' relationship was valid and good. Some commentators interpreted the reversal as a demonstration of genuine prophetic sensitivity and willingness to course-correct when unintended pastoral harm became clear — a pattern consistent with the entire biblical record of progressive revelation. The fundamental LDS doctrinal position that marriage is between a man and a woman has remained consistent throughout.",scr:"Matthew 19:14",scrN:"Suffer the little children to come unto me — Christ's clear command to welcome and include children, which apologists argue was the ultimate pastoral motivation behind the 2019 policy reversal",wrong:["1 Corinthians 7:14","Deuteronomy 24:16"]},
-  {id:14,cat:6,q:"Critics argue the LDS Church's exclusion of women from the Melchizedek priesthood and from the highest positions of institutional leadership creates a fundamentally unequal and spiritually diminishing second-class religious status for women. Women cannot preside over congregations, cannot perform salvific ordinances for the deceased in temples, and the patriarchal temple endowment ceremony has historically placed women in a structurally subordinate covenant relationship. Critics argue this institutionalized patriarchal structure contradicts Paul's declaration that there is neither male nor female in Christ and reflects 19th-century cultural biases rather than eternal divine design.",ans:"LDS apologists argue that priesthood in LDS theology is a specific stewardship of service and not a mark of personal superiority or spiritual standing. Women exercise genuine authority through the Relief Society, Young Women, and Primary organizations, and participate in temple ordinances as equal covenant partners with specific and honored roles. LDS theology teaches that women and men are co-equal in eternal standing and are jointly exalted in the celestial kingdom through eternal marriage. The Church has also significantly expanded women's formal leadership roles in recent years, including serving in general Church leadership councils.",scr:"Galatians 3:28",scrN:"Neither male nor female in Christ — LDS apologists argue this spiritual equality is fully realized in LDS eternal marriage theology and the co-equal exaltation of men and women in celestial glory",wrong:["1 Timothy 2:12","1 Corinthians 14:34"]},
-  {id:15,cat:7,q:"Critics point to multiple high-profile LDS scholars and advocates who were formally excommunicated or disfellowshipped — notably the September Six in 1993 and later John Dehlin, Kate Kelly, and others — not for moral failures but specifically for publicly sharing documented historical facts, asking institutional questions, or organizing member advocacy groups. Critics argue these disciplinary actions reveal a deeply authoritarian institutional culture that protects official narratives by silencing truth-tellers and sincere questioners rather than engaging their documented historical concerns openly and honestly in the public square.",ans:"LDS apologists distinguish between legitimate historical inquiry and honest questioning — which the Church actively encourages through its own Gospel Topics Essays and sustained academic engagement at BYU — and organized public advocacy campaigns specifically designed to generate media pressure for institutional policy changes or to publicly undermine the testimonies of other members. They argue the Church has both the theological right and the pastoral responsibility to maintain doctrinal coherence. Many LDS scholars conduct extensive research on difficult topics without facing any disciplinary action because they engage within appropriate and constructive boundaries.",scr:"Matthew 18:15",scrN:"Go to your brother privately first — the biblical pattern of graduated personal correction that LDS apologists argue Church disciplinary processes attempt to follow",wrong:["Matthew 7:1","John 8:7"]},
-  {id:16,cat:7,q:"Critics argue that LDS institutional culture encourages members to follow prophetic counsel without sufficient critical analysis — expressed in statements like the seminary manual quote that when the prophet speaks the thinking is done, Elder Oaks's statement that members should not criticize Church leaders even when the criticism is true, and Elder Nelson's earlier teaching that members must not try to keep up with current events. Critics contend this creates a dangerous epistemically dependent culture that makes members vulnerable to institutional manipulation and suppresses honest intellectual engagement.",ans:"LDS apologists clarify that the Church does not formally teach blind obedience — Joseph Smith himself explicitly and repeatedly rejected the idea that he intended to make himself a controlling authority over members' personal thinking and spiritual understanding. LDS theology actively encourages personal revelation, independent scripture study, and personal spiritual confirmation of all teachings through the Holy Ghost as the ultimate spiritual authority for each individual. D&C 9:7-8 explicitly teaches that God expects members to study things out in their own minds before seeking divine confirmation through the Spirit.",scr:"Acts 17:11",scrN:"The Bereans searched the scriptures daily to verify what they heard — the biblical model of independent personal verification of prophetic teaching that the Church actually encourages",wrong:["Hebrews 13:17","Romans 13:1"]},
-  {id:17,cat:8,q:"The LDS temple endowment ceremony shares remarkably specific and detailed structural similarities with Masonic ritual, including ceremonial handshakes with specific grip positions, body positions and movements, historically used penalty oaths, ceremonial clothing and aprons, passwords associated with specific signs, and the symbolic narrative journey from spiritual ignorance to divine knowledge. Joseph Smith was formally initiated as a Freemason in March 1842 and introduced the first temple endowment ceremony just seven weeks later. Critics argue these unmistakable parallels prove the endowment was simply adapted from Masonry rather than revealed from heaven.",ans:"LDS apologists, particularly Hugh Nibley in his extensive scholarly work, argue the similarities between Masonic ritual and the LDS temple endowment actually point to a common ancient source rather than modern 19th-century invention. Nibley documented that both Masonry and the LDS endowment preserve fragmentary elements of ancient Israelite and Near Eastern temple initiation ceremonies. Joseph Smith claimed to see in Masonry a corrupted version of original ancient temple ritual and to restore that original. The endowment's specific theological content — its creation narrative structure, covenant framework, and cosmological theology — cannot be explained by Masonic borrowing alone.",scr:"1 Kings 6:19",scrN:"The inner sanctuary of Solomon's Temple — LDS apologists cite the extensive ancient Israelite temple ritual tradition as the shared deep source of both Masonic symbols and the restored LDS endowment",wrong:["Exodus 28:2","Leviticus 8:7"]},
-  {id:18,cat:8,q:"Brigham Young publicly and repeatedly taught what became known as the Adam-God Theory — that Adam, who came to this earth as the archangel Michael, is literally our Heavenly Father and that Jesus Christ was conceived by Adam in the flesh. This doctrine was taught from the highest level of LDS leadership in General Conference sermons for decades. Critics argue this teaching directly contradicts basic Christian monotheism and LDS canonical scripture, demonstrating that LDS prophets can teach anti-Christian theology while claiming to speak for God.",ans:"LDS apologists and all modern Church leadership have explicitly and unequivocally disavowed the Adam-God Theory as false doctrine not consistent with LDS scripture or modern prophetic teaching. President Spencer W. Kimball specifically identified it as false doctrine in 1976. Apologists argue Brigham Young's statements appear to represent personal speculative theological exploration rather than formal binding canonized revelation — a distinction the LDS model of prophetic fallibility explicitly allows. The canonical scriptures in Moses 1-4 and D&C 29 clearly distinguish God the Father from Adam.",scr:"Moses 1:3",scrN:"God's identity is clearly distinguished from Adam in the Pearl of Great Price — this canonical scripture directly contradicts the Adam-God Theory",wrong:["Abraham 3:22","D&C 76:24"]},
-  {id:19,cat:9,q:"Critics note that President Russell M. Nelson has made correction of the nickname Mormon a prominent institutional priority, insisting on the full official Church name and describing the use of Mormon in a 2018 General Conference address in terms many members and observers found strikingly hyperbolic — particularly given the Church's own long history of actively promoting the mormon.org website and Mormon.org branding for decades. Critics argue this intense institutional energy devoted to rebranding demonstrates either severe institutional insecurity or a troubling tendency to confuse administrative preference with matters of profound doctrinal urgency.",ans:"LDS apologists explain that President Nelson's initiative reflects a sincere and substantive theological concern: that the Church's popular nickname obscures its central foundational claim — that Jesus Christ personally and literally restored His original church in the latter days through a living prophet. The full official name The Church of Jesus Christ of Latter-day Saints places Christ explicitly and unmistakably at the center of the institution's identity in a way that Mormon Church simply does not, which has genuine theological and missionary significance.",scr:"Acts 11:26",scrN:"The disciples were first called Christians at Antioch — the early apostolic church similarly insisted on Christ-centered identification as a theologically essential marker of community identity",wrong:["Revelation 2:17","Philippians 2:9"]},
-  {id:20,cat:9,q:"Critics document what they describe as declining active membership engagement in the Western world, including chapel closures, declining mission applications, significant increases in formal name removal requests, and statistical evidence suggesting that actual weekly attendance may be dramatically lower than official membership rolls indicate. They argue these trends demonstrate the Church is experiencing a major credibility crisis driven by the unprecedented availability of comprehensive historical information through the internet, and that institutional responses including the Gospel Topics Essays came too late and remain too incomplete to meaningfully reverse the documented exodus of thoughtful long-term members.",ans:"LDS apologists acknowledge the Church faces genuine challenges in an information-saturated, increasingly secular Western cultural environment that poses challenges for all traditional religious institutions. However, the global picture is significantly more complex: the Church continues growing substantially in Africa, Latin America, Southeast Asia, and other regions even as some Western demographic trends present challenges. The Gospel Topics Essays represent a genuine and historically significant institutional commitment to historical transparency. Scholars like Terryl Givens argue that members who engage with full Church history through informed faithful frameworks often develop deeper and more resilient faith.",scr:"Daniel 2:44",scrN:"The stone cut without hands that fills the whole earth — LDS apologists cite Nebuchadnezzar's prophetic vision as the foundational scriptural promise of the Church's ultimate global destiny",wrong:["Matthew 24:24","Revelation 6:9"]},
+  {id:13,cat:6,q:"In November 2015 the LDS Church updated its official handbook to classify members in same-sex marriages as apostates subject to formal disciplinary councils, and prohibited the minor children of same-sex couples from receiving baptism or baby blessings until they turned 18. Mental health professionals and LGBTQ advocates widely condemned this policy, arguing it unjustly punished innocent children for their parents' relationship and contributed to documented increases in depression and suicide among LGBTQ Latter-day Saints. The policy was reversed in April 2019. Critics argue both the policy and its reversal demonstrate Church leaders are responding to social pressure, not divine revelation.",ans:"LDS apologists note the policy was never intended to punish children but was an attempt to prevent painful spiritual conflict within households where children would be simultaneously taught in Church that same-sex marriage was contrary to God's law and at home that their parents' relationship was valid and good. Some commentators interpreted the reversal as a demonstration of genuine prophetic sensitivity and willingness to course-correct when unintended pastoral harm became clear. The fundamental LDS doctrinal position that marriage is between a man and a woman has remained consistent throughout.",scr:"Matthew 19:14",scrN:"Suffer the little children to come unto me — Christ's clear command to welcome and include children",wrong:["1 Corinthians 7:14","Deuteronomy 24:16"]},
+  {id:14,cat:6,q:"Critics argue the LDS Church's exclusion of women from the Melchizedek priesthood and from the highest positions of institutional leadership creates a fundamentally unequal and spiritually diminishing second-class religious status for women. Women cannot preside over congregations, cannot perform salvific ordinances for the deceased in temples, and the patriarchal temple endowment ceremony has historically placed women in a structurally subordinate covenant relationship. Critics argue this institutionalized patriarchal structure contradicts Paul's declaration that there is neither male nor female in Christ and reflects 19th-century cultural biases rather than eternal divine design.",ans:"LDS apologists argue that priesthood in LDS theology is a specific stewardship of service and not a mark of personal superiority or spiritual standing. Women exercise genuine authority through the Relief Society, Young Women, and Primary organizations, and participate in temple ordinances as equal covenant partners with specific and honored roles. LDS theology teaches that women and men are co-equal in eternal standing and are jointly exalted in the celestial kingdom through eternal marriage. The Church has also significantly expanded women's formal leadership roles in recent years.",scr:"Galatians 3:28",scrN:"Neither male nor female in Christ — this spiritual equality is fully realized in LDS eternal marriage theology",wrong:["1 Timothy 2:12","1 Corinthians 14:34"]},
+  {id:15,cat:7,q:"Critics point to multiple high-profile LDS scholars and advocates who were formally excommunicated or disfellowshipped — notably the September Six in 1993 and later John Dehlin, Kate Kelly, and others — not for moral failures but specifically for publicly sharing documented historical facts, asking institutional questions, or organizing member advocacy groups. Critics argue these disciplinary actions reveal a deeply authoritarian institutional culture that protects official narratives by silencing truth-tellers and sincere questioners rather than engaging their documented historical concerns openly and honestly.",ans:"LDS apologists distinguish between legitimate historical inquiry and honest questioning — which the Church actively encourages through its own Gospel Topics Essays and sustained academic engagement at BYU — and organized public advocacy campaigns specifically designed to generate media pressure for institutional policy changes or to publicly undermine the testimonies of other members. They argue the Church has both the theological right and the pastoral responsibility to maintain doctrinal coherence.",scr:"Matthew 18:15",scrN:"Go to your brother privately first — the biblical pattern of graduated personal correction",wrong:["Matthew 7:1","John 8:7"]},
+  {id:16,cat:7,q:"Critics argue that LDS institutional culture encourages members to follow prophetic counsel without sufficient critical analysis — expressed in statements like the seminary manual quote that when the prophet speaks the thinking is done, Elder Oaks's statement that members should not criticize Church leaders even when the criticism is true, and Elder Nelson's earlier teaching that members must not try to keep up with current events. Critics contend this creates a dangerous epistemically dependent culture that suppresses honest intellectual engagement.",ans:"LDS apologists clarify that the Church does not formally teach blind obedience — Joseph Smith himself explicitly and repeatedly rejected the idea that he intended to make himself a controlling authority over members' personal thinking. LDS theology actively encourages personal revelation, independent scripture study, and personal spiritual confirmation of all teachings through the Holy Ghost as the ultimate spiritual authority for each individual. D&C 9:7-8 explicitly teaches that God expects members to study things out in their own minds before seeking divine confirmation.",scr:"Acts 17:11",scrN:"The Bereans searched the scriptures daily to verify what they heard — the biblical model of independent personal verification",wrong:["Hebrews 13:17","Romans 13:1"]},
+  {id:17,cat:8,q:"The LDS temple endowment ceremony shares remarkably specific and detailed structural similarities with Masonic ritual, including ceremonial handshakes with specific grip positions, body positions and movements, historically used penalty oaths, ceremonial clothing and aprons, passwords associated with specific signs, and the symbolic narrative journey from spiritual ignorance to divine knowledge. Joseph Smith was formally initiated as a Freemason in March 1842 and introduced the first temple endowment ceremony just seven weeks later. Critics argue these unmistakable parallels prove the endowment was simply adapted from Masonry.",ans:"LDS apologists, particularly Hugh Nibley in his extensive scholarly work, argue the similarities between Masonic ritual and the LDS temple endowment actually point to a common ancient source rather than modern 19th-century invention. Nibley documented that both Masonry and the LDS endowment preserve fragmentary elements of ancient Israelite and Near Eastern temple initiation ceremonies. Joseph Smith claimed to see in Masonry a corrupted version of original ancient temple ritual and to restore that original. The endowment's specific theological content cannot be explained by Masonic borrowing alone.",scr:"1 Kings 6:19",scrN:"The inner sanctuary of Solomon's Temple — the extensive ancient Israelite temple ritual tradition is the shared deep source of both Masonic symbols and the restored LDS endowment",wrong:["Exodus 28:2","Leviticus 8:7"]},
+  {id:18,cat:8,q:"Brigham Young publicly and repeatedly taught what became known as the Adam-God Theory — that Adam, who came to this earth as the archangel Michael, is literally our Heavenly Father and that Jesus Christ was conceived by Adam in the flesh. This doctrine was taught from the highest level of LDS leadership in General Conference sermons for decades. Critics argue this teaching directly contradicts basic Christian monotheism and LDS canonical scripture, demonstrating that LDS prophets can teach anti-Christian theology while claiming to speak for God.",ans:"LDS apologists and all modern Church leadership have explicitly and unequivocally disavowed the Adam-God Theory as false doctrine not consistent with LDS scripture or modern prophetic teaching. President Spencer W. Kimball specifically identified it as false doctrine in 1976. Apologists argue Brigham Young's statements appear to represent personal speculative theological exploration rather than formal binding canonized revelation. The canonical scriptures in Moses 1-4 and D&C 29 clearly distinguish God the Father from Adam.",scr:"Moses 1:3",scrN:"God's identity is clearly distinguished from Adam in the Pearl of Great Price — this directly contradicts the Adam-God Theory",wrong:["Abraham 3:22","D&C 76:24"]},
+  {id:19,cat:9,q:"Critics note that President Russell M. Nelson has made correction of the nickname Mormon a prominent institutional priority, insisting on the full official Church name and describing the use of Mormon in a 2018 General Conference address in terms many members and observers found strikingly hyperbolic — particularly given the Church's own long history of actively promoting the mormon.org website and Mormon.org branding for decades. Critics argue this intense institutional energy devoted to rebranding demonstrates either severe institutional insecurity or a troubling tendency to confuse administrative preference with matters of profound doctrinal urgency.",ans:"LDS apologists explain that President Nelson's initiative reflects a sincere and substantive theological concern: that the Church's popular nickname obscures its central foundational claim — that Jesus Christ personally and literally restored His original church in the latter days through a living prophet. The full official name The Church of Jesus Christ of Latter-day Saints places Christ explicitly and unmistakably at the center of the institution's identity in a way that Mormon Church simply does not, which has genuine theological and missionary significance.",scr:"Acts 11:26",scrN:"The disciples were first called Christians at Antioch — the early apostolic church similarly insisted on Christ-centered identification as theologically essential",wrong:["Revelation 2:17","Philippians 2:9"]},
+  {id:20,cat:9,q:"Critics document what they describe as declining active membership engagement in the Western world, including chapel closures, declining mission applications, significant increases in formal name removal requests, and statistical evidence suggesting that actual weekly attendance may be dramatically lower than official membership rolls indicate. They argue these trends demonstrate the Church is experiencing a major credibility crisis driven by the unprecedented availability of comprehensive historical information through the internet, and that institutional responses including the Gospel Topics Essays came too late.",ans:"LDS apologists acknowledge the Church faces genuine challenges in an information-saturated, increasingly secular Western cultural environment that poses challenges for all traditional religious institutions. However, the global picture is significantly more complex: the Church continues growing substantially in Africa, Latin America, Southeast Asia, and other regions even as some Western demographic trends present challenges. The Gospel Topics Essays represent a genuine and historically significant institutional commitment to historical transparency. Scholars like Terryl Givens argue that members who engage with full Church history through informed faithful frameworks often develop deeper and more resilient faith.",scr:"Daniel 2:44",scrN:"The stone cut without hands that fills the whole earth — Nebuchadnezzar's prophetic vision of the Church's ultimate global destiny",wrong:["Matthew 24:24","Revelation 6:9"]},
 ];
 
 function shuffle(arr){return [...arr].sort(()=>Math.random()-.5);}
+
+function calcPoints(elapsedSecs){
+  if(elapsedSecs<=300)return 10;
+  const minsOver=Math.floor((elapsedSecs-300)/60);
+  return Math.max(0,10-2*(minsOver+1));
+}
 
 function drawWheel(canvas,angle){
   if(!canvas)return;
@@ -189,13 +185,6 @@ function getWheelCat(angle){
   const n=CATS.length,arc=Math.PI*2/n;
   const a=((-angle-Math.PI/2)%(Math.PI*2)+Math.PI*2)%(Math.PI*2);
   return Math.floor(a/arc)%n;
-}
-
-// Points decay: full 10 pts for first 5 min, then lose 2pts per minute after that
-function calcPoints(elapsedSecs){
-  if(elapsedSecs<=300)return 10;
-  const minsOver=Math.floor((elapsedSecs-300)/60);
-  return Math.max(0,10-2*(minsOver+1));
 }
 
 function ConfettiCanvas({parts}){
@@ -254,16 +243,20 @@ function App(){
   const [showAdminLogin,setShowAdminLogin]=useState(false);
   const [listening,setListening]=useState(false);
   const [micStatus,setMicStatus]=useState('');
-  const [micSupported]=useState(()=>!!(window.SpeechRecognition||window.webkitSpeechRecognition));
-  const recognitionRef=useRef(null);
   const wheelRef=useRef(null);
   const timerRef=useRef(null);
+  const recognitionRef=useRef(null);
   const MAX_ROUNDS=10;
+
+  const micSupported=!!(window.SpeechRecognition||window.webkitSpeechRecognition);
 
   useEffect(()=>{drawWheel(wheelRef.current,wheelAngle);},[wheelAngle]);
 
   useEffect(()=>{
-    if(screen!=='question'){clearInterval(timerRef.current);return;}
+    if(screen!=='question'){
+      clearInterval(timerRef.current);
+      return;
+    }
     clearInterval(timerRef.current);
     timerRef.current=setInterval(()=>{
       const elapsed=(Date.now()-timerStart)/1000;
@@ -301,6 +294,64 @@ function App(){
     return CATS.filter(c=>qs.some(q=>q.cat===c.id&&!ids.includes(q.id))).map(c=>c.id);
   },[qs,usedIds]);
 
+  const stopMic=()=>{
+    if(recognitionRef.current){
+      try{recognitionRef.current.stop();}catch(e){}
+      recognitionRef.current=null;
+    }
+    setListening(false);
+    setMicStatus('');
+  };
+
+  const toggleMic=()=>{
+    if(!micSupported){
+      alert('Voice input is not supported in this browser. Please use Chrome or Safari.');
+      return;
+    }
+    if(listening){
+      stopMic();
+      return;
+    }
+    const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+    const rec=new SR();
+    rec.continuous=true;
+    rec.interimResults=true;
+    rec.lang='en-US';
+    rec.onstart=()=>{
+      setListening(true);
+      setMicStatus('🎤 Listening… speak your answer');
+    };
+    rec.onresult=(e)=>{
+      let interim='';
+      let finalText='';
+      for(let i=e.resultIndex;i<e.results.length;i++){
+        const t=e.results[i][0].transcript;
+        if(e.results[i].isFinal){finalText+=t;}
+        else{interim+=t;}
+      }
+      if(finalText){
+        setAnswer(prev=>{
+          const base=prev.trim();
+          return base?base+' '+finalText.trim():finalText.trim();
+        });
+      }
+      if(interim){setMicStatus('💬 '+interim);}
+      else{setMicStatus('🎤 Listening… speak your answer');}
+    };
+    rec.onerror=(e)=>{
+      setMicStatus('❌ Mic error: '+e.error);
+      setListening(false);
+      recognitionRef.current=null;
+    };
+    rec.onend=()=>{
+      setListening(false);
+      setMicStatus('✅ Done — review your answer and submit');
+      recognitionRef.current=null;
+    };
+    recognitionRef.current=rec;
+    rec.start();
+  };
+
   const spinWheel=()=>{
     if(spinning)return;
     const avail=getAvailCats();
@@ -316,7 +367,7 @@ function App(){
       const ease=1-Math.pow(1-t,3);
       const ang=startA+ease*(finalAngle-startA);
       setWheelAngle(ang);
-      if(t<1)requestAnimationFrame(step);
+      if(t<1){requestAnimationFrame(step);}
       else{setSpinning(false);launchQuestion(getWheelCat(ang),false,[]);}
     };
     requestAnimationFrame(step);
@@ -337,119 +388,159 @@ function App(){
     setSubmitLabel('📝 Submit Answer');
     setTimerStart(Date.now());
     setTimerSecs(TIMER_TOTAL);
+    stopMic();
+    setMicStatus('');
     setScreen('question');
   };
 
   const handleTimeOut=()=>{
     clearInterval(timerRef.current);
     setSubmitDisabled(true);
+    stopMic();
     doRedFlash();
-    // build steal queue from other players
-    setStealQueue(prev=>{
-      const others=players.map((_,i)=>i).filter(i=>i!==current);
-      if(others.length>0){
-        const [nextStealer,...rest]=others;
-        setFeedback({
-          emoji:'⏰',ptsText:'Time\'s up! 0 pts',ptsCol:'#e05c5c',
-          text:'No answer in time.',
-          apol:currentQ?.ans||'',scr:currentQ?currentQ.scr+' — '+currentQ.scrN:'',
-          onClose:()=>{
-            setFeedback(null);
-            setCurrent(nextStealer);
-            setIsSteal(true);
-            setStealQueue(rest);
-            setTimerStart(Date.now());
-            setTimerSecs(TIMER_TOTAL);
-            setSubmitDisabled(false);
-            setSubmitLabel('📝 Submit Answer');
-            setScreen('question');
-          },
-        });
-      } else {
-        setFeedback({
-          emoji:'⏰',ptsText:'Time\'s up! 0 pts',ptsCol:'#e05c5c',
-          text:'No points awarded.',
-          apol:currentQ?.ans||'',scr:currentQ?currentQ.scr+' — '+currentQ.scrN:'',
-          onClose:()=>{setFeedback(null);advanceTurn();},
-        });
-      }
-      return prev;
-    });
+    const others=players.map((_,i)=>i).filter(i=>i!==current);
+    if(others.length>0){
+      const nextStealer=others[0];
+      const rest=others.slice(1);
+      setFeedback({
+        emoji:'⏰',ptsText:'Time\'s up! 0 pts',ptsCol:'#e05c5c',
+        text:'No answer in time.',
+        apol:currentQ?currentQ.ans:'',
+        scr:currentQ?currentQ.scr+' — '+currentQ.scrN:'',
+        onClose:()=>{
+          setFeedback(null);
+          setCurrent(nextStealer);
+          setIsSteal(true);
+          setStealQueue(rest);
+          setTimerStart(Date.now());
+          setTimerSecs(TIMER_TOTAL);
+          setSubmitDisabled(false);
+          setSubmitLabel('📝 Submit Answer');
+          setScreen('question');
+        },
+      });
+    } else {
+      setFeedback({
+        emoji:'⏰',ptsText:'Time\'s up! 0 pts',ptsCol:'#e05c5c',
+        text:'No points awarded.',
+        apol:currentQ?currentQ.ans:'',
+        scr:currentQ?currentQ.scr+' — '+currentQ.scrN:'',
+        onClose:()=>{setFeedback(null);advanceTurn();},
+      });
+    }
   };
 
   const submitAnswer=async()=>{
     if(!answer.trim())return;
     clearInterval(timerRef.current);
+    stopMic();
     const ts=getTimeScore();
     setSubmitDisabled(true);
     setSubmitLabel('⏳ Evaluating…');
-    let rating='wrong',fbText='';
+    let rating='wrong';
+    let fbText='';
     try{
       const resp=await fetch('/api/evaluate',{
         method:'POST',
         headers:{'Content-Type':'application/json'},
         body:JSON.stringify({
-          model:'claude-sonnet-4-20250514',max_tokens:350,
+          model:'claude-sonnet-4-20250514',
+          max_tokens:350,
           system:'You are a judge in an LDS apologetics trivia game. Evaluate the player answer as "correct" (solid understanding of the LDS apologetic position), "partial" (partially correct, missing key elements), or "wrong" (incorrect or very incomplete). Reply ONLY with valid JSON: {"rating":"correct|partial|wrong","feedback":"1-2 specific sentences explaining the rating and what the ideal answer covers"}',
           messages:[{role:'user',content:'CRITICISM:\n'+currentQ.q+'\n\nIDEAL ANSWER:\n'+currentQ.ans+'\n\nPLAYER ANSWER:\n'+answer}],
         }),
       });
       const data=await resp.json();
-      const raw=data.content?.[0]?.text||'{}';
+      const raw=(data.content&&data.content[0]&&data.content[0].text)||'{}';
       const parsed=JSON.parse(raw.replace(/```json|```/g,'').trim());
-      rating=parsed.rating||'wrong';fbText=parsed.feedback||'';
-    }catch(e){fbText='Could not evaluate: '+e.message;rating='wrong';}
+      rating=parsed.rating||'wrong';
+      fbText=parsed.feedback||'';
+    }catch(e){
+      fbText='Could not evaluate: '+e.message;
+      rating='wrong';
+    }
     setSubmitLabel('📝 Submit Answer');
     let pts=0,emoji='❌',ptsCol='#e05c5c';
     if(rating==='correct'){pts=ts;emoji='🎉';ptsCol='#5aab6a';}
     else if(rating==='partial'){pts=Math.ceil(ts/2);emoji='🤔';ptsCol='#c4a63a';}
     if(pts>0){addPoints(current,currentQ.cat,pts);doConfetti();}
-    else doRedFlash();
+    else{doRedFlash();}
 
+    const currentStealQueue=stealQueue;
     setFeedback({
-      emoji,ptsText:pts>0?'+'+pts+' points!':'0 points',ptsCol,
-      text:fbText,apol:currentQ.ans,scr:currentQ.scr+' — '+currentQ.scrN,
+      emoji,
+      ptsText:pts>0?'+'+pts+' points!':'0 points',
+      ptsCol,
+      text:fbText,
+      apol:currentQ.ans,
+      scr:currentQ.scr+' — '+currentQ.scrN,
       onClose:()=>{
         setFeedback(null);
-        if(pts>0){showBonus();}
-        else if(stealQueue.length>0){
-          const [nextStealer,...rest]=stealQueue;
+        if(pts>0){
+          showBonus();
+        } else if(currentStealQueue.length>0){
+          const nextStealer=currentStealQueue[0];
+          const rest=currentStealQueue.slice(1);
           setFeedback({
             emoji:'🔥',ptsText:'STEAL!',ptsCol:'#9b5fd4',
-            text:players[nextStealer]?.name+', steal opportunity! Answer for up to '+ts+' pts.',
+            text:(players[nextStealer]?players[nextStealer].name:'Next player')+', steal opportunity! Answer for points.',
             apol:'',scr:'',
             onClose:()=>{
-              setCurrent(nextStealer);setIsSteal(true);setStealQueue(rest);
-              setTimerStart(Date.now());setTimerSecs(TIMER_TOTAL);
-              setSubmitDisabled(false);setSubmitLabel('📝 Submit Answer');setAnswer('');
-              setFeedback(null);setScreen('question');
+              setCurrent(nextStealer);
+              setIsSteal(true);
+              setStealQueue(rest);
+              setTimerStart(Date.now());
+              setTimerSecs(TIMER_TOTAL);
+              setSubmitDisabled(false);
+              setSubmitLabel('📝 Submit Answer');
+              setAnswer('');
+              setMicStatus('');
+              setFeedback(null);
+              setScreen('question');
             },
           });
-        } else advanceTurn();
+        } else {
+          advanceTurn();
+        }
       },
     });
   };
 
   const skipQuestion=()=>{
-    clearInterval(timerRef.current);setSubmitDisabled(true);doRedFlash();
+    clearInterval(timerRef.current);
+    setSubmitDisabled(true);
+    stopMic();
+    doRedFlash();
     const others=players.map((_,i)=>i).filter(i=>i!==current);
     if(others.length>0){
-      const [nextStealer,...rest]=others;
+      const nextStealer=others[0];
+      const rest=others.slice(1);
       setFeedback({
         emoji:'⏭️',ptsText:'Skipped',ptsCol:'#aaa',
-        text:players[current]?.name+' skipped. '+players[nextStealer]?.name+', steal opportunity!',
+        text:(players[current]?players[current].name:'Player')+' skipped. '+(players[nextStealer]?players[nextStealer].name:'Next player')+', steal opportunity!',
         apol:currentQ.ans,scr:'',
         onClose:()=>{
-          setCurrent(nextStealer);setIsSteal(true);setStealQueue(rest);
-          setTimerStart(Date.now());setTimerSecs(TIMER_TOTAL);
-          setSubmitDisabled(false);setSubmitLabel('📝 Submit Answer');setAnswer('');
-          setFeedback(null);setScreen('question');
+          setCurrent(nextStealer);
+          setIsSteal(true);
+          setStealQueue(rest);
+          setTimerStart(Date.now());
+          setTimerSecs(TIMER_TOTAL);
+          setSubmitDisabled(false);
+          setSubmitLabel('📝 Submit Answer');
+          setAnswer('');
+          setMicStatus('');
+          setFeedback(null);
+          setScreen('question');
         },
       });
     } else {
-      setFeedback({emoji:'⏭️',ptsText:'0 pts',ptsCol:'#aaa',text:'No points awarded.',
-        apol:currentQ.ans,scr:currentQ.scr+' — '+currentQ.scrN,
-        onClose:()=>{setFeedback(null);advanceTurn();}});
+      setFeedback({
+        emoji:'⏭️',ptsText:'0 pts',ptsCol:'#aaa',
+        text:'No points awarded.',
+        apol:currentQ.ans,
+        scr:currentQ.scr+' — '+currentQ.scrN,
+        onClose:()=>{setFeedback(null);advanceTurn();},
+      });
     }
   };
 
@@ -459,68 +550,118 @@ function App(){
       {ref:currentQ.wrong[0],note:'',correct:false},
       {ref:currentQ.wrong[1],note:'',correct:false},
     ]);
-    setBonusOpts(opts);setBonusPicked(null);setScreen('bonus');
+    setBonusOpts(opts);
+    setBonusPicked(null);
+    setScreen('bonus');
   };
 
   const pickBonus=(idx)=>{
     setBonusPicked(idx);
     const opt=bonusOpts[idx];
     if(opt.correct){
-      addPoints(current,currentQ.cat,10);doConfetti();
+      addPoints(current,currentQ.cat,10);
+      doConfetti();
       setTimeout(()=>{
-        setFeedback({emoji:'📖',ptsText:'+10 Bonus!',ptsCol:'#ffd700',
-          text:'Correct! '+opt.ref+(opt.note?' — '+opt.note:''),apol:'',scr:'',onClose:advanceTurn});
+        setFeedback({
+          emoji:'📖',ptsText:'+10 Bonus!',ptsCol:'#ffd700',
+          text:'Correct! '+opt.ref+(opt.note?' — '+opt.note:''),
+          apol:'',scr:'',
+          onClose:advanceTurn,
+        });
       },700);
-    }else{
+    } else {
       doRedFlash();
       setTimeout(()=>{
-        setFeedback({emoji:'📖',ptsText:'0 Bonus',ptsCol:'#e05c5c',
-          text:'Correct: '+currentQ.scr+' — '+currentQ.scrN,apol:'',scr:'',onClose:advanceTurn});
+        setFeedback({
+          emoji:'📖',ptsText:'0 Bonus',ptsCol:'#e05c5c',
+          text:'Correct answer: '+currentQ.scr+' — '+currentQ.scrN,
+          apol:'',scr:'',
+          onClose:advanceTurn,
+        });
       },700);
     }
   };
 
   const advanceTurn=()=>{
-    setFeedback(null);setIsSteal(false);setStealQueue([]);
+    setFeedback(null);
+    setIsSteal(false);
+    setStealQueue([]);
     const nextRound=round+1;
-    if(nextRound>=MAX_ROUNDS||!getAvailCats().length){doEndGame();return;}
+    if(nextRound>=MAX_ROUNDS||!getAvailCats().length){
+      doEndGame();
+      return;
+    }
     setRound(nextRound);
     setCurrent(nextRound%numPlayers);
     setScreen('spin');
   };
 
-  const doEndGame=()=>{setFeedback(null);setScreen('final');doConfetti();};
+  const doEndGame=()=>{
+    setFeedback(null);
+    setScreen('final');
+    doConfetti();
+  };
 
   const startGame=()=>{
     const ps=Array.from({length:numPlayers},(_,i)=>({
-      name:playerNames[i]||DEFAULT_NAMES[i],total:0,cats:{}
+      name:playerNames[i]||DEFAULT_NAMES[i],
+      total:0,
+      cats:{},
     }));
     setPlayers(ps);
-    setRound(0);setCurrent(0);setUsedIds([]);setIsSteal(false);setStealQueue([]);setWheelAngle(0);setScreen('spin');
+    setRound(0);
+    setCurrent(0);
+    setUsedIds([]);
+    setIsSteal(false);
+    setStealQueue([]);
+    setWheelAngle(0);
+    setScreen('spin');
   };
 
   const resetGame=()=>{
-    setScreen('setup');setPlayers([]);setNumPlayers(2);
+    stopMic();
+    setScreen('setup');
+    setPlayers([]);
+    setNumPlayers(2);
     setPlayerNames(['Player 1','Player 2','Player 3']);
-    setCurrent(0);setRound(0);setUsedIds([]);setCurrentQ(null);
-    setIsSteal(false);setStealQueue([]);setTimerSecs(TIMER_TOTAL);setTimerStart(null);
-    setAnswer('');setSubmitDisabled(false);setSubmitLabel('📝 Submit Answer');
-    setFeedback(null);setBonusOpts([]);setBonusPicked(null);setFlashRed(false);
-    setConfettiParts([]);setQs(INIT_QS);setWheelAngle(0);setSpinning(false);
-    setAdminQ({cat:0,q:'',ans:'',scr:'',scrN:'',w1:'',w2:''});setAdminMsg('');
-    setAdminPw('');setShowAdminLogin(false);
+    setCurrent(0);
+    setRound(0);
+    setUsedIds([]);
+    setCurrentQ(null);
+    setIsSteal(false);
+    setStealQueue([]);
+    setTimerSecs(TIMER_TOTAL);
+    setTimerStart(null);
+    setAnswer('');
+    setSubmitDisabled(false);
+    setSubmitLabel('📝 Submit Answer');
+    setFeedback(null);
+    setBonusOpts([]);
+    setBonusPicked(null);
+    setFlashRed(false);
+    setConfettiParts([]);
+    setQs(INIT_QS);
+    setWheelAngle(0);
+    setSpinning(false);
+    setAdminQ({cat:0,q:'',ans:'',scr:'',scrN:'',w1:'',w2:''});
+    setAdminMsg('');
+    setAdminPw('');
+    setShowAdminLogin(false);
+    setListening(false);
+    setMicStatus('');
   };
 
-  // Timer display helpers
   const timerPct=timerSecs/TIMER_TOTAL;
   const circ=2*Math.PI*30;
   const timerCol=timerSecs>300?'#5aab6a':timerSecs>150?'#c4a63a':'#e05c5c';
-  const timerM=Math.floor(timerSecs/60),timerS=Math.floor(timerSecs%60);
-  const currentPts=calcPoints(TIMER_TOTAL-timerSecs);
+  const timerM=Math.floor(timerSecs/60);
+  const timerS=Math.floor(timerSecs%60);
+  const elapsed=timerStart?(Date.now()-timerStart)/1000:0;
+  const currentPts=calcPoints(elapsed);
   const inFullPtZone=timerSecs>300;
-
-  // Final screen sorted rankings
-  const rankedPlayers=players.length>0?[...players].map((p,i)=>({...p,idx:i})).sort((a,b)=>b.total-a.total):[];
+  const rankedPlayers=players.length>0
+    ?[...players].map((p,i)=>({...p,idx:i})).sort((a,b)=>b.total-a.total)
+    :[];
 
   return (
     <>
@@ -535,7 +676,7 @@ function App(){
             <div className="fb-text">{feedback.text}</div>
             {feedback.apol&&<div className="fb-apol"><h4>📚 LDS Apologetic Response:</h4><p>{feedback.apol}</p></div>}
             {feedback.scr&&<div className="fb-apol"><h4>📖 Key Scripture:</h4><p>{feedback.scr}</p></div>}
-            <button className="btn btn-gold" style={{marginTop:10}} onClick={()=>{setFeedback(null);feedback.onClose?.();}}>Continue →</button>
+            <button className="btn btn-gold" style={{marginTop:10}} onClick={()=>{setFeedback(null);feedback.onClose&&feedback.onClose();}}>Continue →</button>
           </div>
         </div>
       )}
@@ -545,9 +686,9 @@ function App(){
           <div className="fb-box" style={{maxWidth:360}}>
             <div style={{fontSize:'1.8rem',fontWeight:900,color:'#ffd700',marginBottom:14}}>⚙️ Admin Login</div>
             <input type="password" placeholder="Password" value={adminPw} onChange={e=>setAdminPw(e.target.value)}
-              onKeyDown={e=>{if(e.key==='Enter'){if(adminPw==='Timothy'){setShowAdminLogin(false);setScreen('admin');}else alert('Wrong password.');}}}/>
+              onKeyDown={e=>{if(e.key==='Enter'){if(adminPw==='Timothy'){setShowAdminLogin(false);setScreen('admin');}else{alert('Wrong password.');}}}}/>
             <div className="btn-row">
-              <button className="btn btn-gold" onClick={()=>{if(adminPw==='Timothy'){setShowAdminLogin(false);setScreen('admin');}else alert('Wrong password.');}}>Enter</button>
+              <button className="btn btn-gold" onClick={()=>{if(adminPw==='Timothy'){setShowAdminLogin(false);setScreen('admin');}else{alert('Wrong password.');}}}>Enter</button>
               <button className="btn btn-red" onClick={()=>setShowAdminLogin(false)}>Cancel</button>
             </div>
           </div>
@@ -569,21 +710,17 @@ function App(){
           </div>
           {Array.from({length:numPlayers},(_,i)=>(
             <div key={i} className="player-input-row">
-              <span>{['🥇','🥈','🥉'][i]}</span>
-              <input
-                value={playerNames[i]}
-                onChange={e=>{const n=[...playerNames];n[i]=e.target.value;setPlayerNames(n);}}
-                placeholder={DEFAULT_NAMES[i]}
-              />
+              <span>{MEDALS[i]}</span>
+              <input value={playerNames[i]} onChange={e=>{const n=[...playerNames];n[i]=e.target.value;setPlayerNames(n);}} placeholder={DEFAULT_NAMES[i]}/>
             </div>
           ))}
         </div>
         <div className="card" style={{maxWidth:520}}>
           <h2>⏱️ Timer Rules</h2>
-          <p style={{color:'#ccc',fontSize:'.9rem',lineHeight:1.6}}>
+          <p style={{color:'#ccc',fontSize:'.9rem',lineHeight:1.7}}>
             Each question gives you <strong style={{color:'#ffd700'}}>10 minutes</strong> to answer.<br/>
-            Full <strong style={{color:'#5aab6a'}}>10 points</strong> if you answer within the first <strong style={{color:'#5aab6a'}}>5 minutes</strong>.<br/>
-            After 5 minutes, you lose <strong style={{color:'#c4a63a'}}>2 points per minute</strong>.<br/>
+            Full <strong style={{color:'#5aab6a'}}>10 points</strong> for answering within the first <strong style={{color:'#5aab6a'}}>5 minutes</strong>.<br/>
+            After 5 minutes you lose <strong style={{color:'#c4a63a'}}>2 points per minute</strong>.<br/>
             No points if time runs out completely.
           </p>
         </div>
@@ -608,7 +745,7 @@ function App(){
           <div className="spin-pointer">▼</div>
           <canvas ref={wheelRef} id="wheelCanvas" width={420} height={420}/>
         </div>
-        <div className="spin-player">{players[current]?.name}'s turn — spin the wheel!</div>
+        <div className="spin-player">{players[current]?players[current].name:'...'}'s turn — spin the wheel!</div>
         <button className="btn btn-gold" onClick={spinWheel} disabled={spinning}>{spinning?'🎡 Spinning…':'🎡 Spin the Wheel!'}</button>
       </div>
 
@@ -620,13 +757,19 @@ function App(){
               <div className="qpc-name">{p.name}</div>
               <div className="qpc-pts">{p.total}</div>
               <div className="cat-dots">
-                {CATS.map(c=><div key={c.id} className={`cat-dot${(p.cats[c.id]||0)>0?' earned':''}`} style={{background:c.col}} title={c.name+': '+(p.cats[c.id]||0)+' pts'}/>)}
+                {CATS.map(c=>(
+                  <div key={c.id} className={`cat-dot${(p.cats[c.id]||0)>0?' earned':''}`} style={{background:c.col}} title={c.name+': '+(p.cats[c.id]||0)+' pts'}/>
+                ))}
               </div>
             </div>
           ))}
         </div>
         <div className="q-topbar">
-          {currentQ&&<div className="cat-badge" style={{background:CATS[currentQ.cat].col}}>{CATS[currentQ.cat].emoji} {CATS[currentQ.cat].name}</div>}
+          {currentQ&&(
+            <div className="cat-badge" style={{background:CATS[currentQ.cat].col}}>
+              {CATS[currentQ.cat].emoji} {CATS[currentQ.cat].name}
+            </div>
+          )}
           <div className="timer-wrap">
             <svg className="timer-svg" viewBox="0 0 72 72">
               <circle className="timer-bg" cx="36" cy="36" r="30"/>
@@ -637,23 +780,44 @@ function App(){
         </div>
         <div className="timer-status">
           <span className="ts-label">⏱️ Answer now for:</span>
-          <span className="ts-val" style={{color:inFullPtZone?'#5aab6a':'#c4a63a'}}>
+          <span style={{fontWeight:700,color:inFullPtZone?'#5aab6a':'#c4a63a'}}>
             {inFullPtZone?'🟢 Full 10 points!':'🟡 '+currentPts+' points (decaying)'}
           </span>
         </div>
-        {isSteal&&<div className="steal-banner"><div style={{fontSize:'1.2rem',fontWeight:900}}>🔥 STEAL OPPORTUNITY!</div><div style={{color:'#ddd',marginTop:4,fontSize:'.9rem'}}>{players[current]?.name} — answer for points!</div></div>}
+        {isSteal&&(
+          <div className="steal-banner">
+            <div style={{fontSize:'1.2rem',fontWeight:900}}>🔥 STEAL OPPORTUNITY!</div>
+            <div style={{color:'#ddd',marginTop:4,fontSize:'.9rem'}}>{players[current]?players[current].name:'Player'} — answer for points!</div>
+          </div>
+        )}
         <div className="q-box">
           <div className="how-would">❓ How would you answer this?</div>
-          <div className="q-text">{currentQ?.q}</div>
+          <div className="q-text">{currentQ?currentQ.q:''}</div>
         </div>
         <div className="ans-area">
           <div className="mic-row">
-            <textarea value={answer} onChange={e=>setAnswer(e.target.value)} disabled={submitDisabled} placeholder="Type your answer here — or tap 🎤 to speak it…"/>
-            <button className={`mic-btn${listening?' listening':' idle'}`} onClick={toggleMic} disabled={submitDisabled} title={listening?'Stop listening':'Start voice input'}>
-              {listening?'⏹':'🎤'}
-            </button>
+            <textarea
+              value={answer}
+              onChange={e=>setAnswer(e.target.value)}
+              disabled={submitDisabled}
+              placeholder={micSupported?"Type your answer here — or tap 🎤 to speak it…":"Type your LDS apologetic response here…"}
+            />
+            {micSupported&&(
+              <button
+                className={`mic-btn${listening?' listening':''}`}
+                onClick={toggleMic}
+                disabled={submitDisabled}
+                title={listening?'Stop listening':'Start voice input'}
+              >
+                {listening?'⏹':'🎤'}
+              </button>
+            )}
           </div>
-          <div className="mic-status" style={{color:listening?'#e05c5c':micStatus.startsWith('✅')?'#5aab6a':'#aaa'}}>{micStatus}</div>
+          {micSupported&&(
+            <div className={`mic-status${listening?' active':micStatus.startsWith('✅')?' done':''}`}>
+              {micStatus}
+            </div>
+          )}
           <div className="btn-row">
             <button className="btn btn-gold" disabled={submitDisabled} onClick={submitAnswer}>{submitLabel}</button>
             <button className="btn btn-red" onClick={skipQuestion}>⏭️ Skip / Pass</button>
@@ -665,7 +829,7 @@ function App(){
       <div className={`screen${screen==='bonus'?' active':''}`} style={{background:'linear-gradient(135deg,#0f3460,#1a1a2e)'}}>
         <div className="bonus-title">📖 Scripture Bonus!</div>
         <div className="bonus-sub">Which Bible verse best supports the LDS apologetic response?<br/><strong style={{color:'#ffd700'}}>+10 bonus points if correct!</strong></div>
-        <div className="bonus-ctx">"{currentQ?.q.slice(0,130)}…"</div>
+        <div className="bonus-ctx">"{currentQ?currentQ.q.slice(0,130):''}…"</div>
         {bonusOpts.map((o,i)=>(
           <button key={i}
             className={`scr-opt${bonusPicked===i?(o.correct?' correct':' wrong'):''}${bonusPicked!==null&&o.correct?' correct':''}`}
@@ -683,7 +847,7 @@ function App(){
         <div style={{color:'#aaa',marginTop:8,fontSize:'.95rem'}}>
           {rankedPlayers.length>1&&rankedPlayers[0].total===rankedPlayers[1].total?"It's a tie!":'🏆 Winner'}
         </div>
-        <div className="winner-name">{rankedPlayers[0]?.name}</div>
+        <div className="winner-name">{rankedPlayers[0]?rankedPlayers[0].name:''}</div>
         <div className="final-scores">
           {rankedPlayers.map((p,rank)=>(
             <div key={p.idx} className="fpc">
@@ -734,9 +898,11 @@ function App(){
           <div className="btn-row" style={{justifyContent:'flex-start'}}>
             <button className="btn btn-gold" onClick={()=>{
               if(!adminQ.q||!adminQ.ans){alert('Question and answer required.');return;}
-              setQs(prev=>[...prev,{id:Date.now(),cat:adminQ.cat,q:adminQ.q,ans:adminQ.ans,
+              setQs(prev=>[...prev,{
+                id:Date.now(),cat:adminQ.cat,q:adminQ.q,ans:adminQ.ans,
                 scr:adminQ.scr||'Genesis 1:1',scrN:adminQ.scrN||'',
-                wrong:[adminQ.w1||'John 3:16',adminQ.w2||'Romans 8:28']}]);
+                wrong:[adminQ.w1||'John 3:16',adminQ.w2||'Romans 8:28'],
+              }]);
               setAdminMsg('✅ Question added! Total: '+(qs.length+1));
               setAdminQ({cat:0,q:'',ans:'',scr:'',scrN:'',w1:'',w2:''});
             }}>➕ Add Question</button>
