@@ -68,6 +68,14 @@ select option{background:#222;}
 .q-text{font-size:.94rem;color:#ddd;}
 .ans-area{width:100%;max-width:860px;}
 textarea{min-height:100px;resize:vertical;}
+.mic-row{display:flex;gap:10px;align-items:flex-start;width:100%;}
+.mic-row textarea{flex:1;}
+.mic-btn{flex-shrink:0;width:54px;height:54px;border-radius:50%;border:none;font-size:1.5rem;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;margin-top:0;}
+.mic-btn.idle{background:rgba(255,255,255,.12);color:#fff;}
+.mic-btn.idle:hover{background:rgba(255,215,0,.25);transform:scale(1.08);}
+.mic-btn.listening{background:linear-gradient(135deg,#e05c5c,#c43c4a);color:#fff;animation:micpulse 1s infinite alternate;box-shadow:0 0 0 0 rgba(224,92,92,.5);}
+@keyframes micpulse{from{box-shadow:0 0 0 0 rgba(224,92,92,.5)}to{box-shadow:0 0 0 12px rgba(224,92,92,0)}}
+.mic-status{font-size:.78rem;text-align:center;margin-top:4px;height:16px;}
 /* Timer status bar */
 .timer-status{width:100%;max-width:860px;background:rgba(255,255,255,.06);border-radius:8px;padding:7px 14px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;font-size:.82rem;}
 .timer-status .ts-label{color:#aaa;}
@@ -244,6 +252,10 @@ function App(){
   const [adminMsg,setAdminMsg]=useState('');
   const [adminPw,setAdminPw]=useState('');
   const [showAdminLogin,setShowAdminLogin]=useState(false);
+  const [listening,setListening]=useState(false);
+  const [micStatus,setMicStatus]=useState('');
+  const [micSupported]=useState(()=>!!(window.SpeechRecognition||window.webkitSpeechRecognition));
+  const recognitionRef=useRef(null);
   const wheelRef=useRef(null);
   const timerRef=useRef(null);
   const MAX_ROUNDS=10;
@@ -635,7 +647,13 @@ function App(){
           <div className="q-text">{currentQ?.q}</div>
         </div>
         <div className="ans-area">
-          <textarea value={answer} onChange={e=>setAnswer(e.target.value)} disabled={submitDisabled} placeholder="Type your LDS apologetic response here…"/>
+          <div className="mic-row">
+            <textarea value={answer} onChange={e=>setAnswer(e.target.value)} disabled={submitDisabled} placeholder="Type your answer here — or tap 🎤 to speak it…"/>
+            <button className={`mic-btn${listening?' listening':' idle'}`} onClick={toggleMic} disabled={submitDisabled} title={listening?'Stop listening':'Start voice input'}>
+              {listening?'⏹':'🎤'}
+            </button>
+          </div>
+          <div className="mic-status" style={{color:listening?'#e05c5c':micStatus.startsWith('✅')?'#5aab6a':'#aaa'}}>{micStatus}</div>
           <div className="btn-row">
             <button className="btn btn-gold" disabled={submitDisabled} onClick={submitAnswer}>{submitLabel}</button>
             <button className="btn btn-red" onClick={skipQuestion}>⏭️ Skip / Pass</button>
