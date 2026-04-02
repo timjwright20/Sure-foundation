@@ -15,7 +15,7 @@ body,#root{font-family:'Nunito',sans-serif;background:#1a1a2e;color:#fff;min-hei
 .screen.active{display:flex;}
 .title{font-size:clamp(2rem,5vw,3.5rem);font-weight:900;text-align:center;background:linear-gradient(to right,#ffd700,#ff8c00,#ffd700);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:.4rem;}
 .subtitle{color:#aaa;text-align:center;margin-bottom:1.5rem;}
-.card{background:rgba(255,255,255,.08);border-radius:16px;padding:22px;width:100%;max-width:520px;margin:10px 0;}
+.card{background:rgba(255,255,255,.08);border-radius:16px;padding:22px;width:100%;max-width:560px;margin:10px 0;}
 .card h2{margin-bottom:14px;color:#ffd700;}
 input,textarea,select{width:100%;padding:11px;border-radius:8px;border:2px solid rgba(255,255,255,.2);background:rgba(255,255,255,.1);color:#fff;font-size:1rem;margin-bottom:11px;font-family:'Nunito',sans-serif;}
 input:focus,textarea:focus,select:focus{outline:none;border-color:#ffd700;}
@@ -26,29 +26,38 @@ select option{background:#222;}
 .btn-gold{background:linear-gradient(135deg,#ffd700,#ff8c00);color:#000;}
 .btn-red{background:linear-gradient(135deg,#e05c5c,#c43c4a);color:#fff;}
 .btn-blue{background:linear-gradient(135deg,#4a84d4,#2a64b4);color:#fff;}
+.btn-green{background:linear-gradient(135deg,#5aab6a,#3a8b4a);color:#fff;}
 .btn-row{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:10px;}
-.score-cards{display:flex;gap:14px;margin-bottom:16px;flex-wrap:wrap;justify-content:center;}
-.sc{text-align:center;padding:12px 24px;background:rgba(255,255,255,.08);border-radius:14px;border:2px solid transparent;transition:border-color .3s;}
+/* Player count selector */
+.pcount-row{display:flex;gap:10px;margin-bottom:14px;}
+.pcount-btn{flex:1;padding:12px;border-radius:10px;border:2px solid rgba(255,255,255,.2);background:rgba(255,255,255,.07);color:#aaa;font-size:1.1rem;font-weight:700;cursor:pointer;transition:all .2s;font-family:'Nunito',sans-serif;}
+.pcount-btn.selected{border-color:#ffd700;background:rgba(255,215,0,.15);color:#ffd700;}
+.pcount-btn:hover{border-color:#ffd700;color:#ffd700;}
+/* Score cards */
+.score-cards{display:flex;gap:12px;margin-bottom:16px;flex-wrap:wrap;justify-content:center;}
+.sc{text-align:center;padding:10px 18px;background:rgba(255,255,255,.08);border-radius:14px;border:2px solid transparent;transition:border-color .3s;}
 .sc.active{border-color:#ffd700;background:rgba(255,215,0,.12);}
-.sc-name{color:#aaa;font-size:.82rem;margin-bottom:3px;}
-.sc-pts{font-size:2.2rem;font-weight:900;color:#ffd700;}
-.spin-wrap{position:relative;width:min(380px,88vw);height:min(380px,88vw);margin:10px 0;}
+.sc-name{color:#aaa;font-size:.78rem;margin-bottom:3px;}
+.sc-pts{font-size:2rem;font-weight:900;color:#ffd700;}
+/* Wheel */
+.spin-wrap{position:relative;width:min(360px,86vw);height:min(360px,86vw);margin:10px 0;}
 .spin-pointer{position:absolute;top:-20px;left:50%;transform:translateX(-50%);font-size:2.2rem;filter:drop-shadow(0 2px 4px rgba(0,0,0,.5));}
 #wheelCanvas{width:100%;height:100%;border-radius:50%;box-shadow:0 0 50px rgba(255,215,0,.2);}
 .spin-player{font-size:1.1rem;color:#ffd700;font-weight:700;margin:12px 0 6px;}
 .round-label{color:#aaa;margin-bottom:8px;}
+/* Question screen */
 .q-topbar{display:flex;justify-content:space-between;align-items:center;width:100%;max-width:860px;margin-bottom:12px;gap:10px;}
 .cat-badge{padding:7px 16px;border-radius:20px;font-weight:700;font-size:.9rem;}
-.timer-wrap{position:relative;width:68px;height:68px;flex-shrink:0;}
-.timer-svg{width:68px;height:68px;transform:rotate(-90deg);}
+.timer-wrap{position:relative;width:72px;height:72px;flex-shrink:0;}
+.timer-svg{width:72px;height:72px;transform:rotate(-90deg);}
 .timer-bg{fill:none;stroke:rgba(255,255,255,.1);stroke-width:6;}
 .timer-fg{fill:none;stroke:#5aab6a;stroke-width:6;stroke-linecap:round;transition:stroke-dashoffset .5s linear,stroke .5s;}
-.timer-num{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:.9rem;font-weight:900;white-space:nowrap;}
-.q-scorebar{display:flex;gap:14px;width:100%;max-width:860px;margin-bottom:12px;}
-.qpc{flex:1;background:rgba(255,255,255,.07);border-radius:12px;padding:10px 14px;border:2px solid transparent;transition:all .3s;}
+.timer-num{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:.85rem;font-weight:900;white-space:nowrap;}
+.q-scorebar{display:flex;gap:10px;width:100%;max-width:860px;margin-bottom:12px;flex-wrap:wrap;}
+.qpc{flex:1;min-width:120px;background:rgba(255,255,255,.07);border-radius:12px;padding:10px 12px;border:2px solid transparent;transition:all .3s;}
 .qpc.active{border-color:#ffd700;background:rgba(255,215,0,.1);}
-.qpc-name{font-size:.78rem;color:#aaa;margin-bottom:2px;}
-.qpc-pts{font-size:1.6rem;font-weight:900;color:#ffd700;}
+.qpc-name{font-size:.75rem;color:#aaa;margin-bottom:2px;}
+.qpc-pts{font-size:1.5rem;font-weight:900;color:#ffd700;}
 .cat-dots{display:flex;flex-wrap:wrap;gap:4px;margin-top:5px;}
 .cat-dot{width:7px;height:7px;border-radius:50%;opacity:.2;}
 .cat-dot.earned{opacity:1;}
@@ -59,6 +68,11 @@ select option{background:#222;}
 .q-text{font-size:.94rem;color:#ddd;}
 .ans-area{width:100%;max-width:860px;}
 textarea{min-height:100px;resize:vertical;}
+/* Timer status bar */
+.timer-status{width:100%;max-width:860px;background:rgba(255,255,255,.06);border-radius:8px;padding:7px 14px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;font-size:.82rem;}
+.timer-status .ts-label{color:#aaa;}
+.timer-status .ts-val{font-weight:700;}
+/* Feedback overlay */
 .fb-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.7);display:flex;align-items:center;justify-content:center;z-index:100;padding:20px;}
 .fb-box{background:#1a1a2e;border-radius:20px;padding:28px;max-width:620px;width:100%;text-align:center;box-shadow:0 10px 60px rgba(0,0,0,.6);max-height:90vh;overflow-y:auto;}
 .fb-emoji{font-size:3.2rem;margin-bottom:8px;}
@@ -67,6 +81,7 @@ textarea{min-height:100px;resize:vertical;}
 .fb-apol{background:rgba(255,255,255,.07);border-radius:10px;padding:14px;text-align:left;margin-bottom:10px;}
 .fb-apol h4{color:#ffd700;margin-bottom:7px;font-size:.9rem;}
 .fb-apol p{color:#ccc;font-size:.88rem;line-height:1.55;}
+/* Bonus */
 .bonus-title{font-size:1.9rem;font-weight:900;color:#ffd700;margin-bottom:6px;}
 .bonus-sub{color:#aaa;margin-bottom:18px;text-align:center;max-width:580px;}
 .bonus-ctx{background:rgba(255,255,255,.07);border-radius:10px;padding:13px;max-width:680px;width:100%;margin-bottom:18px;color:#ddd;font-size:.88rem;font-style:italic;}
@@ -75,25 +90,33 @@ textarea{min-height:100px;resize:vertical;}
 .scr-opt.correct{border-color:#5aab6a !important;background:rgba(90,171,106,.2) !important;}
 .scr-opt.wrong{border-color:#e05c5c !important;background:rgba(224,92,92,.2) !important;}
 .scr-opt:disabled{cursor:default;}
+/* Final */
 .trophy{font-size:5rem;animation:bounce 1s infinite;}
 @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-16px)}}
 .winner-name{font-size:clamp(1.7rem,5vw,2.6rem);font-weight:900;background:linear-gradient(to right,#ffd700,#ff8c00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin:7px 0 18px;}
-.final-scores{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;margin-bottom:18px;}
-.fpc{text-align:center;padding:18px 28px;background:rgba(255,255,255,.08);border-radius:14px;}
-.fpc-name{color:#aaa;margin-bottom:7px;}
-.fpc-pts{font-size:2.8rem;font-weight:900;color:#ffd700;}
-.cat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:9px;max-width:720px;width:100%;}
-.cat-row{background:rgba(255,255,255,.07);border-radius:9px;padding:10px 13px;display:flex;justify-content:space-between;align-items:center;font-size:.86rem;}
+.final-scores{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-bottom:18px;}
+.fpc{text-align:center;padding:16px 22px;background:rgba(255,255,255,.08);border-radius:14px;}
+.fpc-name{color:#aaa;margin-bottom:7px;font-size:.9rem;}
+.fpc-pts{font-size:2.6rem;font-weight:900;color:#ffd700;}
+.fpc-rank{font-size:1.4rem;margin-bottom:4px;}
+.cat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:9px;max-width:780px;width:100%;}
+.cat-row{background:rgba(255,255,255,.07);border-radius:9px;padding:10px 13px;display:flex;justify-content:space-between;align-items:center;font-size:.82rem;}
+/* Misc */
 .confetti-canvas{position:fixed;top:0;left:0;pointer-events:none;z-index:200;}
 .red-flash{position:fixed;top:0;left:0;right:0;bottom:0;pointer-events:none;z-index:150;transition:background .3s;}
 .admin-label{display:block;color:#aaa;margin-top:12px;margin-bottom:4px;font-size:.86rem;}
+.player-input-row{display:flex;align-items:center;gap:8px;margin-bottom:8px;}
+.player-input-row span{font-size:1.2rem;width:28px;text-align:center;}
+.player-input-row input{margin-bottom:0;}
 </style>
 </head>
 <body>
 <div id="root"></div>
-
 <script type="text/babel">
 const { useState, useEffect, useRef, useCallback } = React;
+
+const TIMER_TOTAL = 600;   // 10 minutes in seconds
+const FULL_PTS_UNTIL = 300; // full points for first 5 minutes
 
 const CATS = [
   {id:0,name:"Book of Mormon",emoji:"📖",col:"#e05c5c"},
@@ -160,6 +183,13 @@ function getWheelCat(angle){
   return Math.floor(a/arc)%n;
 }
 
+// Points decay: full 10 pts for first 5 min, then lose 2pts per minute after that
+function calcPoints(elapsedSecs){
+  if(elapsedSecs<=300)return 10;
+  const minsOver=Math.floor((elapsedSecs-300)/60);
+  return Math.max(0,10-2*(minsOver+1));
+}
+
 function ConfettiCanvas({parts}){
   const ref=useRef(null);
   useEffect(()=>{
@@ -183,17 +213,21 @@ function ConfettiCanvas({parts}){
   return <canvas ref={ref} className="confetti-canvas"/>;
 }
 
+const MEDALS=['🥇','🥈','🥉'];
+const DEFAULT_NAMES=['Player 1','Player 2','Player 3'];
+
 function App(){
   const [screen,setScreen]=useState('setup');
-  const [players,setPlayers]=useState([{name:'Player 1',total:0,cats:{}},{name:'Player 2',total:0,cats:{}}]);
-  const [p1name,setP1name]=useState('Player 1');
-  const [p2name,setP2name]=useState('Player 2');
+  const [numPlayers,setNumPlayers]=useState(2);
+  const [playerNames,setPlayerNames]=useState(['Player 1','Player 2','Player 3']);
+  const [players,setPlayers]=useState([]);
   const [current,setCurrent]=useState(0);
   const [round,setRound]=useState(0);
   const [usedIds,setUsedIds]=useState([]);
   const [currentQ,setCurrentQ]=useState(null);
   const [isSteal,setIsSteal]=useState(false);
-  const [timerSecs,setTimerSecs]=useState(300);
+  const [stealQueue,setStealQueue]=useState([]);
+  const [timerSecs,setTimerSecs]=useState(TIMER_TOTAL);
   const [timerStart,setTimerStart]=useState(null);
   const [answer,setAnswer]=useState('');
   const [submitDisabled,setSubmitDisabled]=useState(false);
@@ -221,17 +255,15 @@ function App(){
     clearInterval(timerRef.current);
     timerRef.current=setInterval(()=>{
       const elapsed=(Date.now()-timerStart)/1000;
-      const rem=Math.max(0,300-elapsed);
+      const rem=Math.max(0,TIMER_TOTAL-elapsed);
       setTimerSecs(rem);
       if(rem<=0){clearInterval(timerRef.current);handleTimeOut();}
     },250);
     return()=>clearInterval(timerRef.current);
   },[screen,timerStart]);
 
-  const getTimeScore=useCallback(()=>{
-    const e=(Date.now()-timerStart)/1000;
-    if(e<=120)return 10;if(e<=180)return 8;if(e<=240)return 6;if(e<=300)return 4;return 0;
-  },[timerStart]);
+  const getElapsed=useCallback(()=>(Date.now()-timerStart)/1000,[timerStart]);
+  const getTimeScore=useCallback(()=>calcPoints(getElapsed()),[getElapsed]);
 
   const doConfetti=()=>{
     const cols=['#ffd700','#e05c5c','#5aab6a','#4a84d4','#9b5fd4'];
@@ -273,12 +305,12 @@ function App(){
       const ang=startA+ease*(finalAngle-startA);
       setWheelAngle(ang);
       if(t<1)requestAnimationFrame(step);
-      else{setSpinning(false);launchQuestion(getWheelCat(ang),false);}
+      else{setSpinning(false);launchQuestion(getWheelCat(ang),false,[]);}
     };
     requestAnimationFrame(step);
   };
 
-  const launchQuestion=(catIdx,steal,ids=usedIds)=>{
+  const launchQuestion=(catIdx,steal,queue,ids=usedIds)=>{
     let pool=qs.filter(q=>q.cat===catIdx&&!ids.includes(q.id));
     if(!pool.length)pool=qs.filter(q=>!ids.includes(q.id));
     if(!pool.length){doEndGame();return;}
@@ -287,11 +319,12 @@ function App(){
     setUsedIds(nextIds);
     setCurrentQ(q);
     setIsSteal(steal);
+    setStealQueue(queue);
     setAnswer('');
     setSubmitDisabled(false);
     setSubmitLabel('📝 Submit Answer');
     setTimerStart(Date.now());
-    setTimerSecs(300);
+    setTimerSecs(TIMER_TOTAL);
     setScreen('question');
   };
 
@@ -299,23 +332,36 @@ function App(){
     clearInterval(timerRef.current);
     setSubmitDisabled(true);
     doRedFlash();
-    setFeedback({
-      emoji:'⏰',ptsText:'Time\'s up! 0 pts',ptsCol:'#e05c5c',
-      text:'No answer in time.',
-      apol:currentQ?.ans||'',scr:currentQ?currentQ.scr+' — '+currentQ.scrN:'',
-      onClose:()=>{
-        setFeedback(null);
-        setCurrent(prev=>{
-          const other=1-prev;
-          setIsSteal(true);
-          setTimerStart(Date.now());
-          setTimerSecs(300);
-          setSubmitDisabled(false);
-          setSubmitLabel('📝 Submit Answer');
-          setScreen('question');
-          return other;
+    // build steal queue from other players
+    setStealQueue(prev=>{
+      const others=players.map((_,i)=>i).filter(i=>i!==current);
+      if(others.length>0){
+        const [nextStealer,...rest]=others;
+        setFeedback({
+          emoji:'⏰',ptsText:'Time\'s up! 0 pts',ptsCol:'#e05c5c',
+          text:'No answer in time.',
+          apol:currentQ?.ans||'',scr:currentQ?currentQ.scr+' — '+currentQ.scrN:'',
+          onClose:()=>{
+            setFeedback(null);
+            setCurrent(nextStealer);
+            setIsSteal(true);
+            setStealQueue(rest);
+            setTimerStart(Date.now());
+            setTimerSecs(TIMER_TOTAL);
+            setSubmitDisabled(false);
+            setSubmitLabel('📝 Submit Answer');
+            setScreen('question');
+          },
         });
-      },
+      } else {
+        setFeedback({
+          emoji:'⏰',ptsText:'Time\'s up! 0 pts',ptsCol:'#e05c5c',
+          text:'No points awarded.',
+          apol:currentQ?.ans||'',scr:currentQ?currentQ.scr+' — '+currentQ.scrN:'',
+          onClose:()=>{setFeedback(null);advanceTurn();},
+        });
+      }
+      return prev;
     });
   };
 
@@ -347,27 +393,52 @@ function App(){
     else if(rating==='partial'){pts=Math.ceil(ts/2);emoji='🤔';ptsCol='#c4a63a';}
     if(pts>0){addPoints(current,currentQ.cat,pts);doConfetti();}
     else doRedFlash();
+
     setFeedback({
       emoji,ptsText:pts>0?'+'+pts+' points!':'0 points',ptsCol,
       text:fbText,apol:currentQ.ans,scr:currentQ.scr+' — '+currentQ.scrN,
       onClose:()=>{
         setFeedback(null);
         if(pts>0){showBonus();}
-        else{
-          const other=1-current;
+        else if(stealQueue.length>0){
+          const [nextStealer,...rest]=stealQueue;
           setFeedback({
             emoji:'🔥',ptsText:'STEAL!',ptsCol:'#9b5fd4',
-            text:players[other].name+', steal opportunity! Answer for up to '+ts+' pts.',
+            text:players[nextStealer]?.name+', steal opportunity! Answer for up to '+ts+' pts.',
             apol:'',scr:'',
             onClose:()=>{
-              setCurrent(other);setIsSteal(true);setTimerStart(Date.now());setTimerSecs(300);
+              setCurrent(nextStealer);setIsSteal(true);setStealQueue(rest);
+              setTimerStart(Date.now());setTimerSecs(TIMER_TOTAL);
               setSubmitDisabled(false);setSubmitLabel('📝 Submit Answer');setAnswer('');
               setFeedback(null);setScreen('question');
             },
           });
-        }
+        } else advanceTurn();
       },
     });
+  };
+
+  const skipQuestion=()=>{
+    clearInterval(timerRef.current);setSubmitDisabled(true);doRedFlash();
+    const others=players.map((_,i)=>i).filter(i=>i!==current);
+    if(others.length>0){
+      const [nextStealer,...rest]=others;
+      setFeedback({
+        emoji:'⏭️',ptsText:'Skipped',ptsCol:'#aaa',
+        text:players[current]?.name+' skipped. '+players[nextStealer]?.name+', steal opportunity!',
+        apol:currentQ.ans,scr:'',
+        onClose:()=>{
+          setCurrent(nextStealer);setIsSteal(true);setStealQueue(rest);
+          setTimerStart(Date.now());setTimerSecs(TIMER_TOTAL);
+          setSubmitDisabled(false);setSubmitLabel('📝 Submit Answer');setAnswer('');
+          setFeedback(null);setScreen('question');
+        },
+      });
+    } else {
+      setFeedback({emoji:'⏭️',ptsText:'0 pts',ptsCol:'#aaa',text:'No points awarded.',
+        apol:currentQ.ans,scr:currentQ.scr+' — '+currentQ.scrN,
+        onClose:()=>{setFeedback(null);advanceTurn();}});
+    }
   };
 
   const showBonus=()=>{
@@ -398,49 +469,46 @@ function App(){
   };
 
   const advanceTurn=()=>{
-    setFeedback(null);setIsSteal(false);
+    setFeedback(null);setIsSteal(false);setStealQueue([]);
     const nextRound=round+1;
     if(nextRound>=MAX_ROUNDS||!getAvailCats().length){doEndGame();return;}
-    setRound(nextRound);setCurrent(nextRound%2);setScreen('spin');
+    setRound(nextRound);
+    setCurrent(nextRound%numPlayers);
+    setScreen('spin');
   };
 
   const doEndGame=()=>{setFeedback(null);setScreen('final');doConfetti();};
 
-  const skipQuestion=()=>{
-    clearInterval(timerRef.current);setSubmitDisabled(true);doRedFlash();
-    const other=1-current;
-    setFeedback({
-      emoji:'⏭️',ptsText:'Skipped',ptsCol:'#aaa',
-      text:players[current].name+' skipped. '+players[other].name+', steal opportunity!',
-      apol:currentQ.ans,scr:'',
-      onClose:()=>{
-        setCurrent(other);setIsSteal(true);setTimerStart(Date.now());setTimerSecs(300);
-        setSubmitDisabled(false);setSubmitLabel('📝 Submit Answer');setAnswer('');
-        setFeedback(null);setScreen('question');
-      },
-    });
-  };
-
   const startGame=()=>{
-    setPlayers([{name:p1name||'Player 1',total:0,cats:{}},{name:p2name||'Player 2',total:0,cats:{}}]);
-    setRound(0);setCurrent(0);setUsedIds([]);setIsSteal(false);setWheelAngle(0);setScreen('spin');
+    const ps=Array.from({length:numPlayers},(_,i)=>({
+      name:playerNames[i]||DEFAULT_NAMES[i],total:0,cats:{}
+    }));
+    setPlayers(ps);
+    setRound(0);setCurrent(0);setUsedIds([]);setIsSteal(false);setStealQueue([]);setWheelAngle(0);setScreen('spin');
   };
 
   const resetGame=()=>{
-    setScreen('setup');setPlayers([{name:'Player 1',total:0,cats:{}},{name:'Player 2',total:0,cats:{}}]);
-    setP1name('Player 1');setP2name('Player 2');setCurrent(0);setRound(0);setUsedIds([]);
-    setCurrentQ(null);setIsSteal(false);setTimerSecs(300);setTimerStart(null);setAnswer('');
-    setSubmitDisabled(false);setSubmitLabel('📝 Submit Answer');setFeedback(null);
-    setBonusOpts([]);setBonusPicked(null);setFlashRed(false);setConfettiParts([]);
-    setQs(INIT_QS);setWheelAngle(0);setSpinning(false);
+    setScreen('setup');setPlayers([]);setNumPlayers(2);
+    setPlayerNames(['Player 1','Player 2','Player 3']);
+    setCurrent(0);setRound(0);setUsedIds([]);setCurrentQ(null);
+    setIsSteal(false);setStealQueue([]);setTimerSecs(TIMER_TOTAL);setTimerStart(null);
+    setAnswer('');setSubmitDisabled(false);setSubmitLabel('📝 Submit Answer');
+    setFeedback(null);setBonusOpts([]);setBonusPicked(null);setFlashRed(false);
+    setConfettiParts([]);setQs(INIT_QS);setWheelAngle(0);setSpinning(false);
     setAdminQ({cat:0,q:'',ans:'',scr:'',scrN:'',w1:'',w2:''});setAdminMsg('');
     setAdminPw('');setShowAdminLogin(false);
   };
 
-  const timerPct=timerSecs/300;
+  // Timer display helpers
+  const timerPct=timerSecs/TIMER_TOTAL;
   const circ=2*Math.PI*30;
-  const timerCol=timerSecs>150?'#5aab6a':timerSecs>75?'#c4a63a':'#e05c5c';
+  const timerCol=timerSecs>300?'#5aab6a':timerSecs>150?'#c4a63a':'#e05c5c';
   const timerM=Math.floor(timerSecs/60),timerS=Math.floor(timerSecs%60);
+  const currentPts=calcPoints(TIMER_TOTAL-timerSecs);
+  const inFullPtZone=timerSecs>300;
+
+  // Final screen sorted rankings
+  const rankedPlayers=players.length>0?[...players].map((p,i)=>({...p,idx:i})).sort((a,b)=>b.total-a.total):[];
 
   return (
     <>
@@ -478,9 +546,34 @@ function App(){
       <div className={`screen${screen==='setup'?' active':''}`} style={{background:'linear-gradient(135deg,#1a1a2e,#16213e,#0f3460)'}}>
         <div className="title">🏛️ Sure Foundation</div>
         <div className="subtitle">LDS Apologetics Trivia Challenge</div>
-        <div className="card"><h2>👥 Players</h2>
-          <input value={p1name} onChange={e=>setP1name(e.target.value)} placeholder="Player 1 Name"/>
-          <input value={p2name} onChange={e=>setP2name(e.target.value)} placeholder="Player 2 Name"/>
+        <div className="card">
+          <h2>👥 How Many Players?</h2>
+          <div className="pcount-row">
+            {[1,2,3].map(n=>(
+              <button key={n} className={`pcount-btn${numPlayers===n?' selected':''}`} onClick={()=>setNumPlayers(n)}>
+                {n} {n===1?'Player':'Players'}
+              </button>
+            ))}
+          </div>
+          {Array.from({length:numPlayers},(_,i)=>(
+            <div key={i} className="player-input-row">
+              <span>{['🥇','🥈','🥉'][i]}</span>
+              <input
+                value={playerNames[i]}
+                onChange={e=>{const n=[...playerNames];n[i]=e.target.value;setPlayerNames(n);}}
+                placeholder={DEFAULT_NAMES[i]}
+              />
+            </div>
+          ))}
+        </div>
+        <div className="card" style={{maxWidth:520}}>
+          <h2>⏱️ Timer Rules</h2>
+          <p style={{color:'#ccc',fontSize:'.9rem',lineHeight:1.6}}>
+            Each question gives you <strong style={{color:'#ffd700'}}>10 minutes</strong> to answer.<br/>
+            Full <strong style={{color:'#5aab6a'}}>10 points</strong> if you answer within the first <strong style={{color:'#5aab6a'}}>5 minutes</strong>.<br/>
+            After 5 minutes, you lose <strong style={{color:'#c4a63a'}}>2 points per minute</strong>.<br/>
+            No points if time runs out completely.
+          </p>
         </div>
         <div className="btn-row">
           <button className="btn btn-gold" onClick={startGame}>🎯 Start Game</button>
@@ -530,7 +623,13 @@ function App(){
             <div className="timer-num" style={{color:timerCol}}>{timerM}:{timerS<10?'0':''}{timerS}</div>
           </div>
         </div>
-        {isSteal&&<div className="steal-banner"><div style={{fontSize:'1.2rem',fontWeight:900}}>🔥 STEAL OPPORTUNITY!</div><div style={{color:'#ddd',marginTop:4,fontSize:'.9rem'}}>{players[current]?.name} — answer for up to 10 points!</div></div>}
+        <div className="timer-status">
+          <span className="ts-label">⏱️ Answer now for:</span>
+          <span className="ts-val" style={{color:inFullPtZone?'#5aab6a':'#c4a63a'}}>
+            {inFullPtZone?'🟢 Full 10 points!':'🟡 '+currentPts+' points (decaying)'}
+          </span>
+        </div>
+        {isSteal&&<div className="steal-banner"><div style={{fontSize:'1.2rem',fontWeight:900}}>🔥 STEAL OPPORTUNITY!</div><div style={{color:'#ddd',marginTop:4,fontSize:'.9rem'}}>{players[current]?.name} — answer for points!</div></div>}
         <div className="q-box">
           <div className="how-would">❓ How would you answer this?</div>
           <div className="q-text">{currentQ?.q}</div>
@@ -563,14 +662,18 @@ function App(){
       {/* FINAL */}
       <div className={`screen${screen==='final'?' active':''}`} style={{background:'linear-gradient(135deg,#1a1a2e,#16213e,#0f3460)'}}>
         <div className="trophy">🏆</div>
-        <div style={{color:'#aaa',marginTop:8}}>{players[0].total===players[1].total?"It's a tie!":'🏆 Winner'}</div>
-        <div className="winner-name">
-          {players[0].total===players[1].total?players[0].name+' & '+players[1].name
-            :players[0].total>=players[1].total?players[0].name:players[1].name}
+        <div style={{color:'#aaa',marginTop:8,fontSize:'.95rem'}}>
+          {rankedPlayers.length>1&&rankedPlayers[0].total===rankedPlayers[1].total?"It's a tie!":'🏆 Winner'}
         </div>
+        <div className="winner-name">{rankedPlayers[0]?.name}</div>
         <div className="final-scores">
-          {players.map((p,i)=>(
-            <div key={i} className="fpc"><div className="fpc-name">{p.name}</div><div className="fpc-pts">{p.total}</div><div style={{color:'#aaa',fontSize:'.8rem'}}>points</div></div>
+          {rankedPlayers.map((p,rank)=>(
+            <div key={p.idx} className="fpc">
+              <div className="fpc-rank">{MEDALS[rank]||'🎖️'}</div>
+              <div className="fpc-name">{p.name}</div>
+              <div className="fpc-pts">{p.total}</div>
+              <div style={{color:'#aaa',fontSize:'.78rem'}}>points</div>
+            </div>
           ))}
         </div>
         <div style={{fontSize:'.95rem',color:'#ffd700',marginBottom:10,fontWeight:700}}>Score by Category</div>
@@ -578,7 +681,11 @@ function App(){
           {CATS.map(c=>(
             <div key={c.id} className="cat-row">
               <span>{c.emoji} {c.name}</span>
-              <span>{players.map((p,i)=><span key={i} style={{color:c.col,fontWeight:700}}>{p.cats[c.id]||0}{i===0?<span style={{color:'#555'}}> / </span>:''}</span>)}</span>
+              <span style={{display:'flex',gap:6}}>
+                {players.map((p,i)=>(
+                  <span key={i} style={{color:c.col,fontWeight:700}}>{p.cats[c.id]||0}</span>
+                ))}
+              </span>
             </div>
           ))}
         </div>
