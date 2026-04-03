@@ -26,6 +26,7 @@ select option{background:#222;}
 .btn-gold{background:linear-gradient(135deg,#ffd700,#ff8c00);color:#000;}
 .btn-red{background:linear-gradient(135deg,#e05c5c,#c43c4a);color:#fff;}
 .btn-blue{background:linear-gradient(135deg,#4a84d4,#2a64b4);color:#fff;}
+.btn-amber{background:linear-gradient(135deg,#c4a63a,#a07820);color:#fff;}
 .btn-row{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:10px;}
 .pcount-row{display:flex;gap:10px;margin-bottom:14px;}
 .pcount-btn{flex:1;padding:12px;border-radius:10px;border:2px solid rgba(255,255,255,.2);background:rgba(255,255,255,.07);color:#aaa;font-size:1.1rem;font-weight:700;cursor:pointer;transition:all .2s;font-family:'Nunito',sans-serif;}
@@ -37,14 +38,14 @@ select option{background:#222;}
 .sc-name{color:#aaa;font-size:.78rem;margin-bottom:3px;}
 .sc-pts{font-size:2rem;font-weight:900;color:#ffd700;}
 .spin-wrap{position:relative;width:min(460px,92vw);height:min(460px,92vw);margin:10px 0;}
-.cat-reveal{text-align:center;padding:18px 28px;border-radius:18px;margin:14px 0;animation:revealPop .4s cubic-bezier(.175,.885,.32,1.275);max-width:460px;width:100%;}
-@keyframes revealPop{from{transform:scale(.5);opacity:0}to{transform:scale(1);opacity:1}}
-.cat-reveal-emoji{font-size:2.8rem;margin-bottom:6px;}
-.cat-reveal-name{font-size:1.6rem;font-weight:900;color:#fff;}
 .spin-pointer{position:absolute;top:-20px;left:50%;transform:translateX(-50%);font-size:2.2rem;filter:drop-shadow(0 2px 4px rgba(0,0,0,.5));}
 #wheelCanvas{width:100%;height:100%;border-radius:50%;box-shadow:0 0 50px rgba(255,215,0,.2);}
 .spin-player{font-size:1.1rem;color:#ffd700;font-weight:700;margin:12px 0 6px;}
 .round-label{color:#aaa;margin-bottom:8px;}
+.cat-reveal{text-align:center;padding:18px 28px;border-radius:18px;margin:14px 0;animation:revealPop .4s cubic-bezier(.175,.885,.32,1.275);max-width:460px;width:100%;}
+@keyframes revealPop{from{transform:scale(.5);opacity:0}to{transform:scale(1);opacity:1}}
+.cat-reveal-emoji{font-size:2.8rem;margin-bottom:6px;}
+.cat-reveal-name{font-size:1.6rem;font-weight:900;color:#fff;}
 .q-topbar{display:flex;justify-content:space-between;align-items:center;width:100%;max-width:860px;margin-bottom:12px;gap:10px;}
 .cat-badge{padding:7px 16px;border-radius:20px;font-weight:700;font-size:.9rem;}
 .timer-wrap{position:relative;width:72px;height:72px;flex-shrink:0;}
@@ -62,11 +63,23 @@ select option{background:#222;}
 .cat-dot.earned{opacity:1;}
 .steal-banner{background:linear-gradient(135deg,#9b5fd4,#6b2fa4);border-radius:14px;padding:14px 20px;text-align:center;width:100%;max-width:860px;margin-bottom:12px;animation:pulse 1s infinite alternate;}
 @keyframes pulse{from{box-shadow:0 0 8px rgba(155,95,212,.4)}to{box-shadow:0 0 24px rgba(155,95,212,.8)}}
-.q-box{background:rgba(255,255,255,.07);border-radius:14px;padding:20px;max-width:860px;width:100%;margin-bottom:14px;line-height:1.65;}
+.q-box{background:rgba(255,255,255,.07);border-radius:14px;padding:20px;max-width:860px;width:100%;margin-bottom:10px;line-height:1.65;}
 .how-would{color:#ffd700;font-weight:700;font-size:.95rem;margin-bottom:9px;}
 .q-text{font-size:.94rem;color:#ddd;}
 .timer-status{width:100%;max-width:860px;background:rgba(255,255,255,.06);border-radius:8px;padding:7px 14px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;font-size:.82rem;}
 .timer-status .ts-label{color:#aaa;}
+/* Hint box */
+.hint-bar{width:100%;max-width:860px;margin-bottom:10px;}
+.hint-btn{width:100%;padding:11px;border-radius:10px;border:2px dashed rgba(196,166,58,.6);background:rgba(196,166,58,.08);color:#c4a63a;font-size:.95rem;font-weight:700;cursor:pointer;transition:all .2s;font-family:'Nunito',sans-serif;}
+.hint-btn:hover:not(:disabled){background:rgba(196,166,58,.18);border-color:#c4a63a;transform:scale(1.02);}
+.hint-btn:disabled{opacity:.5;cursor:default;}
+.hint-box{background:rgba(196,166,58,.1);border:2px solid rgba(196,166,58,.4);border-radius:12px;padding:16px;animation:hintSlide .3s ease;}
+@keyframes hintSlide{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
+.hint-box h4{color:#c4a63a;font-size:.9rem;margin-bottom:10px;}
+.hint-concept{display:flex;align-items:flex-start;gap:8px;margin-bottom:7px;font-size:.88rem;color:#ddd;line-height:1.45;}
+.hint-concept-icon{color:#c4a63a;font-size:1rem;flex-shrink:0;margin-top:1px;}
+.hint-penalty{color:#e05c5c;font-size:.78rem;margin-top:8px;font-style:italic;}
+/* Answer area */
 .ans-area{width:100%;max-width:860px;}
 .mic-row{display:flex;gap:10px;align-items:flex-start;width:100%;}
 .mic-row textarea{flex:1;min-height:100px;resize:vertical;margin-bottom:0;}
@@ -118,7 +131,7 @@ select option{background:#222;}
 const { useState, useEffect, useRef, useCallback } = React;
 
 const TIMER_TOTAL = 600;
-const FULL_PTS_UNTIL = 300;
+const HINT_PENALTY = 3;
 
 const CATS = [
   {id:0,name:"Book of Mormon",emoji:"📖",col:"#e05c5c"},
@@ -133,27 +146,127 @@ const CATS = [
   {id:9,name:"Modern Criticism",emoji:"📱",col:"#c43c4a"},
 ];
 
+// Each question now has a 'hints' array of 3 key concepts the player should hit
 const INIT_QS = [
-  {id:1,cat:0,q:"Critics claim there is absolutely no archaeological, genetic, or geological evidence to support the existence of the massive Nephite and Lamanite civilizations described in the Book of Mormon — civilizations supposedly including elaborate cities, armies of hundreds of thousands, horses, steel weapons, wheat, chariots, and silk. Professional archaeologists working throughout Mesoamerica and North America have never found a single artifact, burial site, or ruin consistent with the text's timeline, and critics argue this total scientific silence is fatal to the book's historicity.",ans:"LDS apologists point out that absence of evidence is not evidence of absence. Less than 1% of ancient Mesoamerican sites have been fully excavated. Scholars like John Sorenson identified extensive cultural parallels with Maya and Olmec civilizations. The Book of Mormon depicts a remnant people intermingled with much larger indigenous populations, so no dominant Nephite archaeological signature would necessarily be expected. Organic materials like wood, cloth, and leather degrade quickly in tropical climates.",scr:"Hebrews 11:1",scrN:"Faith is the substance of things hoped for — archaeological proof is not the scriptural standard for spiritual truth",wrong:["John 20:29","Romans 1:20"]},
-  {id:2,cat:0,q:"DNA studies consistently show that Native American ancestry traces to northeast Asia via the Bering land bridge, with no detectable Middle Eastern or Israelite genetic markers of the kind the Book of Mormon's narrative would require. Lehi's family supposedly left Jerusalem around 600 BC and became primary ancestors of indigenous Americans. Critics argue comprehensive genetic testing of thousands of ancient and modern Native American samples across the entire Western Hemisphere directly and conclusively disproves this central foundational claim.",ans:"LDS apologists explain that Lehi's small founding family would have their genetic signature completely absorbed into an already-populated continent within a few hundred years through genetic drift, admixture, and founder bottleneck effects. The Book of Mormon never claims Lehi's family were the only inhabitants — they arrived to a populated land. The Church's Gospel Topics Essay on DNA openly acknowledges this complexity and notes that absence of detectable Israelite markers is scientifically expected given the realistic demographic model the text actually presents.",scr:"Acts 17:26",scrN:"God made all nations from one blood — consistent with small founding populations whose distinct markers become absorbed into larger populations over time",wrong:["Genesis 10:32","Romans 5:12"]},
-  {id:3,cat:1,q:"When the papyri Joseph Smith used to produce the Book of Abraham were rediscovered at the Metropolitan Museum of Art in 1966, professional Egyptologists definitively identified them as standard 1st-century AD Egyptian funerary documents — the Book of Breathings Made by Isis — with zero connection to Abraham. Multiple independent Egyptologists from major research universities confirmed the actual hieroglyphic text bears no resemblance whatsoever to Joseph Smith's claimed translation. Critics say this definitively proves Joseph Smith had no authentic prophetic translation ability.",ans:"LDS apologists offer two main defenses. First, the Missing Scroll theory: historical inventories suggest Joseph possessed a longer scroll now lost, which may have been the actual source of Abraham's record. Second, the Catalyst theory (supported in the Church's Gospel Topics Essay): the papyri served as a spiritual prompt and the actual text was received through independent revelation. LDS Egyptologists Kerry Muhlestein and John Gee documented extensive literary parallels between the Book of Abraham and ancient non-biblical Abraham traditions Joseph could not have known from his 19th-century rural environment.",scr:"Amos 3:7",scrN:"God reveals his secrets through his prophets — revelation can occur independently of any physical text source",wrong:["Hebrews 1:1","2 Peter 1:21"]},
-  {id:4,cat:1,q:"Professional Egyptologists universally agree that Joseph Smith's explanations of the facsimiles in the Book of Abraham are demonstrably incorrect. Facsimile 1 depicts the god Anubis performing a standard embalming ritual on a mummy — not an angel stopping a human sacrifice as Joseph claimed. Facsimile 3 shows a conventional Egyptian throne-room funerary court scene — not Abraham teaching astronomy to Pharaoh. Multiple scholars from major universities have independently confirmed these findings, and critics argue this verifiable factual mismatch scientifically disproves Joseph Smith's prophetic translation claims.",ans:"LDS Egyptologists John Gee and Kerry Muhlestein argue that Egyptian facsimiles were deliberately polysemous — designed to carry multiple valid ritual interpretations depending on liturgical context. The Abrahamic tradition genuinely existed in ancient Egypt, verified by the Apocalypse of Abraham and other extra-biblical sources, making a connection between Abraham's biography and Egyptian religious imagery historically plausible. Critics assume a single definitive correct reading for each image, while ancient Egyptian iconography was intentionally constructed with multiple layered meanings.",scr:"Genesis 12:10",scrN:"Abraham's actual documented sojourn in Egypt establishes the authentic historical connection between the patriarch and Egyptian cultural records",wrong:["Exodus 3:14","Hebrews 7:1"]},
-  {id:5,cat:2,q:"Joseph Smith gave multiple significantly different accounts of the First Vision. The earliest known 1832 account mentions only Christ appearing and emphasizes personal forgiveness, with no mention of God the Father. The 1835 account introduces heavenly angels. The official 1838 account — published decades later — describes both God the Father and Jesus Christ appearing and condemning every existing Christian church. Critics argue this pattern of escalating, evolving accounts over twelve years demonstrates the narrative was invented and embellished over time rather than recalled from an actual event.",ans:"LDS apologists note that multiple accounts of the same profound event naturally vary in emphasis depending on audience, purpose, and time — all four Gospel accounts of Christ's resurrection differ significantly in detail without undermining the event's historicity. The 1832 account was a private journal entry naturally emphasizing personal spiritual transformation. Historian Steven Harper's comprehensive book Joseph Smith's First Vision analyzes all known accounts and demonstrates they are authentically complementary, each adding contextually appropriate layers rather than contradicting one another.",scr:"James 1:5",scrN:"Ask of God who gives wisdom generously — the exact scripture Joseph was reading that directly prompted the First Vision",wrong:["Matthew 3:16","John 1:18"]},
-  {id:6,cat:2,q:"In 1843 a set of brass plates discovered in Illinois was brought to Joseph Smith. Contemporary accounts say he declared he could translate them, claiming they contained history of a descendant of Ham. However, definitive metallurgical analysis in 1980 confirmed the Kinderhook plates were deliberate 19th-century forgeries created specifically as a hoax to test Joseph Smith. Critics argue this conclusively demonstrates that Joseph Smith had no genuine prophetic translation ability and could be fooled by a crude fraud while confidently claiming divine prophetic insight.",ans:"LDS apologists note that evidence Joseph actually completed a formal translation of the Kinderhook plates is more disputed than critics acknowledge. The primary source claiming a translation occurred was William Clayton's journal — a secondhand account. Joseph's own journal from that period is more ambiguous and noncommittal. FAIR Mormon argues Joseph examined the plates and expressed general interest but never produced any translation text. This situation differs fundamentally from the Book of Mormon, where multiple witnesses observed the lengthy translation process.",scr:"Deuteronomy 18:22",scrN:"If a prophet's word does not come to pass, God did not send him — no formal Kinderhook translation was ever produced",wrong:["1 John 4:1","Matthew 7:15"]},
-  {id:7,cat:3,q:"For decades throughout the 19th century, senior LDS Church leaders including Joseph Smith publicly and emphatically denied practicing polygamy even while secretly maintaining multiple simultaneous marriages. Joseph Smith denied polygamy as late as May 1844 — the year of his death — despite having over 30 documented wives. Multiple apostles also denied polygamy before Congress and to the general public, sometimes under formal legal oath. Critics argue this systematic, sustained deception by men claiming divine prophetic authority fundamentally and irreparably undermines their credibility as true prophets and moral exemplars.",ans:"LDS apologists acknowledge this represents a genuinely difficult historical and moral complexity that cannot simply be dismissed. Historian Richard Bushman and others note that leaders operated within a theological framework where celestial marriage was considered too dangerous to disclose publicly in a violently hostile environment where armed mobs had already murdered members. Others honestly acknowledge this as a genuine moral failing while contextualizing it alongside the serious documented failures of beloved biblical prophets — David committed murder, Moses disobeyed God's direct command, and Peter publicly denied Christ three times.",scr:"Romans 3:23",scrN:"All have sinned and fall short — LDS apologists contextualize prophetic fallibility as consistent with the entire biblical pattern of flawed but authentically called instruments of God",wrong:["Proverbs 12:22","Exodus 20:16"]},
-  {id:8,cat:3,q:"Historical evidence clearly documents that senior LDS Church leaders continued secretly performing and personally entering new plural marriages well after the 1890 Manifesto — some as late as 1904 and beyond, conducted in Mexico and Canada to evade American federal jurisdiction. President Joseph F. Smith admitted to Congress in 1904 that he had continued cohabiting with his plural wives after the Manifesto. Critics argue this documented post-Manifesto deception demonstrates the 1890 Manifesto was purely a political statement driven by existential government pressure — not genuine divine revelation received by a living prophet.",ans:"LDS apologists acknowledge post-Manifesto polygamy occurred and represents genuine complexity in Church history. The Church's own Gospel Topics Essay on Polygamy addresses this honestly, acknowledging that some post-Manifesto plural marriages occurred with at least tacit knowledge from some Church leaders. The definitive Second Manifesto of 1904 more decisively ended the practice. Apologists argue the 1890 Manifesto represented genuine divine guidance given in extreme political context — drawing a parallel with how God has throughout biblical history directed His covenant people to accommodate legitimate legal realities rather than court unnecessary institutional martyrdom.",scr:"Romans 13:1",scrN:"Submit to governing authorities as divinely established — LDS apologists cite this principle to explain the 1890 Manifesto as divinely-guided accommodation to overwhelming legal reality",wrong:["Acts 5:29","Daniel 3:16"]},
-  {id:9,cat:4,q:"From the founding of the LDS Church until June 1978 — a span of nearly 130 years — Black members were systematically barred from the Melchizedek priesthood and completely excluded from all temple ordinances that LDS theology considers essential for the highest degree of eternal glory. Early leaders including Brigham Young repeatedly taught this ban was divinely mandated, connected to the curse of Cain or pre-mortal choices. Official First Presidency statements in 1949 and 1951 firmly defended the ban as current divine doctrine. Critics argue the 1978 reversal came solely due to social pressure and Brazilian temple practicality — proving Church leadership is not divinely guided.",ans:"The Church's own Gospel Topics Essay on Race and the Priesthood explicitly acknowledges the ban's true origins are not entirely clear and unequivocally disavows all past theological justifications including the Curse of Cain and pre-mortal faithfulness theories. LDS apologists note that Spencer W. Kimball and the entire Quorum of the Twelve Apostles described a powerfully unmistakable Spirit-filled experience during extended prayer in the Salt Lake Temple in 1978. The Brazil temple was publicly announced two years before the revelation, meaningfully undercutting the purely pragmatic explanation. Apologists draw a direct parallel to Peter's vision in Acts 10 extending the Gospel covenant to Gentiles.",scr:"Acts 10:34",scrN:"God is no respecter of persons — Peter's vision extending the Gospel to Gentiles provides the direct scriptural parallel to the 1978 revelation",wrong:["Galatians 3:28","Colossians 3:11"]},
-  {id:10,cat:4,q:"The Book of Mormon in 2 Nephi 5:21 describes a skin of blackness as a curse placed upon the Lamanites for rebellion against God. The pre-1981 edition of 2 Nephi 30:6 promised that repentant Lamanites would become white and delightsome. In 1981 the Church quietly changed this phrase to pure and delightsome without formal announcement. Critics argue these passages establish a foundational racial theology connecting dark skin to divine punishment and spiritual inferiority, which shaped the priesthood ban and reflects 19th-century racist worldview rather than divine revelation.",ans:"LDS apologists argue that skin of blackness in the Book of Mormon's specific covenant narrative context refers to a spiritual or cultural mark of separation rather than literal racial skin color — functioning as a covenantal sign, not a declaration of racial hierarchy. Many Old Testament texts use similar mark language in explicitly non-racial ways. Scholars like Brant Gardner and Terryl Givens argue the text describes covenant status and cultural distinctiveness. The Church's Gospel Topics Essay explicitly and unequivocally disavows any theology linking dark skin color to divine punishment or racial inferiority of any kind.",scr:"Galatians 3:28",scrN:"Neither Jew nor Greek in Christ — Paul's foundational declaration that covenant status transcends all ethnic distinctions",wrong:["Numbers 12:10","Revelation 3:18"]},
-  {id:11,cat:5,q:"A 2019 whistleblower complaint alleged that Ensign Peak Advisors — the LDS Church's primary investment arm — had accumulated approximately 100 billion dollars in assets, vastly exceeding anything needed for legitimate charitable or religious purposes. In 2023, the SEC fined the Church and Ensign Peak a combined 9 million dollars specifically for deliberately using 13 shell companies to conceal the true massive size of their investment portfolio from regulators and the investing public. Critics argue this financial opacity, the enormous scale of accumulation, and the SEC enforcement action are fundamentally incompatible with the Church's public teachings about tithing, consecration, and transparency.",ans:"LDS apologists argue the Church has a legitimate and thoroughly biblical basis for building substantial financial reserves — the Joseph in Egypt model of accumulating reserves during prosperity to prepare for catastrophic future crises, including potential government persecution the Church has historically faced. The Church stated its reserves were built for major catastrophic eventualities. Regarding the SEC matter, the Church acknowledged the administrative violation while maintaining the underlying purpose was protective institutional privacy rather than financial fraud. The Church also provides significant global humanitarian aid through LDS Philanthropies and the extensive Bishop's Storehouse welfare system.",scr:"Genesis 41:34",scrN:"Joseph stored 20% of grain during years of plenty to prepare for the coming famine — the direct scriptural precedent for building substantial financial reserves against future crises",wrong:["Matthew 19:21","Luke 16:13"]},
-  {id:12,cat:5,q:"Critics highlight the stark contrast between the LDS Church's reported investment reserves of over 100 billion dollars and its reportedly modest humanitarian aid spending — some estimates placing it at less than 1% of total assets annually. The Church simultaneously requires a full 10% tithe of gross income as a strict prerequisite for temple attendance, applied equally to economically impoverished members in developing nations where 10% represents a very significant sacrifice. Critics argue demanding a significant tithe from economically vulnerable members while sitting on vast investment reserves represents a fundamental contradiction of the Church's stated values.",ans:"LDS apologists defend tithing as a fundamental spiritual covenant that produces genuine blessings — spiritual, temporal, and communal — for participants regardless of financial circumstances. It is understood theologically as an act of faith and covenant fidelity, not institutional fundraising. The Church provides significant humanitarian aid globally through LDS Philanthropies, the Bishop's Storehouse welfare system, and Deseret Industries. The New Testament principle of the widow's mite teaches that sacrificial giving carries profound spiritual value independent of the absolute dollar amount given or the relative wealth of the receiving institution.",scr:"Malachi 3:10",scrN:"Bring all the tithes into the storehouse and prove me herewith — the foundational Old Testament covenant commandment that forms the direct scriptural basis of the LDS law of tithing",wrong:["Luke 21:1","Matthew 23:23"]},
-  {id:13,cat:6,q:"In November 2015 the LDS Church updated its official handbook to classify members in same-sex marriages as apostates subject to formal disciplinary councils, and prohibited the minor children of same-sex couples from receiving baptism or baby blessings until they turned 18. Mental health professionals and LGBTQ advocates widely condemned this policy, arguing it unjustly punished innocent children for their parents' relationship and contributed to documented increases in depression and suicide among LGBTQ Latter-day Saints. The policy was reversed in April 2019. Critics argue both the policy and its reversal demonstrate Church leaders are responding to social pressure, not divine revelation.",ans:"LDS apologists note the policy was never intended to punish children but was an attempt to prevent painful spiritual conflict within households where children would be simultaneously taught in Church that same-sex marriage was contrary to God's law and at home that their parents' relationship was valid and good. Some commentators interpreted the reversal as a demonstration of genuine prophetic sensitivity and willingness to course-correct when unintended pastoral harm became clear. The fundamental LDS doctrinal position that marriage is between a man and a woman has remained consistent throughout.",scr:"Matthew 19:14",scrN:"Suffer the little children to come unto me — Christ's clear command to welcome and include children",wrong:["1 Corinthians 7:14","Deuteronomy 24:16"]},
-  {id:14,cat:6,q:"Critics argue the LDS Church's exclusion of women from the Melchizedek priesthood and from the highest positions of institutional leadership creates a fundamentally unequal and spiritually diminishing second-class religious status for women. Women cannot preside over congregations, cannot perform salvific ordinances for the deceased in temples, and the patriarchal temple endowment ceremony has historically placed women in a structurally subordinate covenant relationship. Critics argue this institutionalized patriarchal structure contradicts Paul's declaration that there is neither male nor female in Christ and reflects 19th-century cultural biases rather than eternal divine design.",ans:"LDS apologists argue that priesthood in LDS theology is a specific stewardship of service and not a mark of personal superiority or spiritual standing. Women exercise genuine authority through the Relief Society, Young Women, and Primary organizations, and participate in temple ordinances as equal covenant partners with specific and honored roles. LDS theology teaches that women and men are co-equal in eternal standing and are jointly exalted in the celestial kingdom through eternal marriage. The Church has also significantly expanded women's formal leadership roles in recent years.",scr:"Galatians 3:28",scrN:"Neither male nor female in Christ — this spiritual equality is fully realized in LDS eternal marriage theology",wrong:["1 Timothy 2:12","1 Corinthians 14:34"]},
-  {id:15,cat:7,q:"Critics point to multiple high-profile LDS scholars and advocates who were formally excommunicated or disfellowshipped — notably the September Six in 1993 and later John Dehlin, Kate Kelly, and others — not for moral failures but specifically for publicly sharing documented historical facts, asking institutional questions, or organizing member advocacy groups. Critics argue these disciplinary actions reveal a deeply authoritarian institutional culture that protects official narratives by silencing truth-tellers and sincere questioners rather than engaging their documented historical concerns openly and honestly.",ans:"LDS apologists distinguish between legitimate historical inquiry and honest questioning — which the Church actively encourages through its own Gospel Topics Essays and sustained academic engagement at BYU — and organized public advocacy campaigns specifically designed to generate media pressure for institutional policy changes or to publicly undermine the testimonies of other members. They argue the Church has both the theological right and the pastoral responsibility to maintain doctrinal coherence.",scr:"Matthew 18:15",scrN:"Go to your brother privately first — the biblical pattern of graduated personal correction",wrong:["Matthew 7:1","John 8:7"]},
-  {id:16,cat:7,q:"Critics argue that LDS institutional culture encourages members to follow prophetic counsel without sufficient critical analysis — expressed in statements like the seminary manual quote that when the prophet speaks the thinking is done, Elder Oaks's statement that members should not criticize Church leaders even when the criticism is true, and Elder Nelson's earlier teaching that members must not try to keep up with current events. Critics contend this creates a dangerous epistemically dependent culture that suppresses honest intellectual engagement.",ans:"LDS apologists clarify that the Church does not formally teach blind obedience — Joseph Smith himself explicitly and repeatedly rejected the idea that he intended to make himself a controlling authority over members' personal thinking. LDS theology actively encourages personal revelation, independent scripture study, and personal spiritual confirmation of all teachings through the Holy Ghost as the ultimate spiritual authority for each individual. D&C 9:7-8 explicitly teaches that God expects members to study things out in their own minds before seeking divine confirmation.",scr:"Acts 17:11",scrN:"The Bereans searched the scriptures daily to verify what they heard — the biblical model of independent personal verification",wrong:["Hebrews 13:17","Romans 13:1"]},
-  {id:17,cat:8,q:"The LDS temple endowment ceremony shares remarkably specific and detailed structural similarities with Masonic ritual, including ceremonial handshakes with specific grip positions, body positions and movements, historically used penalty oaths, ceremonial clothing and aprons, passwords associated with specific signs, and the symbolic narrative journey from spiritual ignorance to divine knowledge. Joseph Smith was formally initiated as a Freemason in March 1842 and introduced the first temple endowment ceremony just seven weeks later. Critics argue these unmistakable parallels prove the endowment was simply adapted from Masonry.",ans:"LDS apologists, particularly Hugh Nibley in his extensive scholarly work, argue the similarities between Masonic ritual and the LDS temple endowment actually point to a common ancient source rather than modern 19th-century invention. Nibley documented that both Masonry and the LDS endowment preserve fragmentary elements of ancient Israelite and Near Eastern temple initiation ceremonies. Joseph Smith claimed to see in Masonry a corrupted version of original ancient temple ritual and to restore that original. The endowment's specific theological content cannot be explained by Masonic borrowing alone.",scr:"1 Kings 6:19",scrN:"The inner sanctuary of Solomon's Temple — the extensive ancient Israelite temple ritual tradition is the shared deep source of both Masonic symbols and the restored LDS endowment",wrong:["Exodus 28:2","Leviticus 8:7"]},
-  {id:18,cat:8,q:"Brigham Young publicly and repeatedly taught what became known as the Adam-God Theory — that Adam, who came to this earth as the archangel Michael, is literally our Heavenly Father and that Jesus Christ was conceived by Adam in the flesh. This doctrine was taught from the highest level of LDS leadership in General Conference sermons for decades. Critics argue this teaching directly contradicts basic Christian monotheism and LDS canonical scripture, demonstrating that LDS prophets can teach anti-Christian theology while claiming to speak for God.",ans:"LDS apologists and all modern Church leadership have explicitly and unequivocally disavowed the Adam-God Theory as false doctrine not consistent with LDS scripture or modern prophetic teaching. President Spencer W. Kimball specifically identified it as false doctrine in 1976. Apologists argue Brigham Young's statements appear to represent personal speculative theological exploration rather than formal binding canonized revelation. The canonical scriptures in Moses 1-4 and D&C 29 clearly distinguish God the Father from Adam.",scr:"Moses 1:3",scrN:"God's identity is clearly distinguished from Adam in the Pearl of Great Price — this directly contradicts the Adam-God Theory",wrong:["Abraham 3:22","D&C 76:24"]},
-  {id:19,cat:9,q:"Critics note that President Russell M. Nelson has made correction of the nickname Mormon a prominent institutional priority, insisting on the full official Church name and describing the use of Mormon in a 2018 General Conference address in terms many members and observers found strikingly hyperbolic — particularly given the Church's own long history of actively promoting the mormon.org website and Mormon.org branding for decades. Critics argue this intense institutional energy devoted to rebranding demonstrates either severe institutional insecurity or a troubling tendency to confuse administrative preference with matters of profound doctrinal urgency.",ans:"LDS apologists explain that President Nelson's initiative reflects a sincere and substantive theological concern: that the Church's popular nickname obscures its central foundational claim — that Jesus Christ personally and literally restored His original church in the latter days through a living prophet. The full official name The Church of Jesus Christ of Latter-day Saints places Christ explicitly and unmistakably at the center of the institution's identity in a way that Mormon Church simply does not, which has genuine theological and missionary significance.",scr:"Acts 11:26",scrN:"The disciples were first called Christians at Antioch — the early apostolic church similarly insisted on Christ-centered identification as theologically essential",wrong:["Revelation 2:17","Philippians 2:9"]},
-  {id:20,cat:9,q:"Critics document what they describe as declining active membership engagement in the Western world, including chapel closures, declining mission applications, significant increases in formal name removal requests, and statistical evidence suggesting that actual weekly attendance may be dramatically lower than official membership rolls indicate. They argue these trends demonstrate the Church is experiencing a major credibility crisis driven by the unprecedented availability of comprehensive historical information through the internet, and that institutional responses including the Gospel Topics Essays came too late.",ans:"LDS apologists acknowledge the Church faces genuine challenges in an information-saturated, increasingly secular Western cultural environment that poses challenges for all traditional religious institutions. However, the global picture is significantly more complex: the Church continues growing substantially in Africa, Latin America, Southeast Asia, and other regions even as some Western demographic trends present challenges. The Gospel Topics Essays represent a genuine and historically significant institutional commitment to historical transparency. Scholars like Terryl Givens argue that members who engage with full Church history through informed faithful frameworks often develop deeper and more resilient faith.",scr:"Daniel 2:44",scrN:"The stone cut without hands that fills the whole earth — Nebuchadnezzar's prophetic vision of the Church's ultimate global destiny",wrong:["Matthew 24:24","Revelation 6:9"]},
+  {id:1,cat:0,
+   q:"Critics claim there is absolutely no archaeological, genetic, or geological evidence to support the existence of the massive Nephite and Lamanite civilizations described in the Book of Mormon — civilizations supposedly including elaborate cities, armies of hundreds of thousands, horses, steel weapons, wheat, chariots, and silk. Professional archaeologists working throughout Mesoamerica and North America have never found a single artifact, burial site, or ruin consistent with the text's timeline, and critics argue this total scientific silence is fatal to the book's historicity.",
+   ans:"LDS apologists point out that absence of evidence is not evidence of absence. Less than 1% of ancient Mesoamerican sites have been fully excavated. Scholars like John Sorenson identified extensive cultural parallels with Maya and Olmec civilizations. The Book of Mormon depicts a remnant people intermingled with much larger indigenous populations, so no dominant Nephite archaeological signature would necessarily be expected. Organic materials like wood, cloth, and leather degrade quickly in tropical climates.",
+   hints:["Absence of evidence is not evidence of absence — most ancient civilizations left minimal traces","Less than 1% of Mesoamerican sites have been excavated, so the record is far from complete","The Book of Mormon describes a small group absorbed into a larger population, so no dominant 'Nephite signature' would be expected"],
+   scr:"Hebrews 11:1",scrN:"Faith is the substance of things hoped for — archaeological proof is not the scriptural standard for spiritual truth",wrong:["John 20:29","Romans 1:20"]},
+
+  {id:2,cat:0,
+   q:"DNA studies consistently show that Native American ancestry traces to northeast Asia via the Bering land bridge, with no detectable Middle Eastern or Israelite genetic markers of the kind the Book of Mormon's narrative would require. Lehi's family supposedly left Jerusalem around 600 BC and became primary ancestors of indigenous Americans. Critics argue comprehensive genetic testing of thousands of ancient and modern Native American samples across the entire Western Hemisphere directly and conclusively disproves this central foundational claim.",
+   ans:"LDS apologists explain that Lehi's small founding family would have their genetic signature completely absorbed into an already-populated continent within a few hundred years through genetic drift, admixture, and founder bottleneck effects. The Book of Mormon never claims Lehi's family were the only inhabitants — they arrived to a populated land. The Church's Gospel Topics Essay on DNA openly acknowledges this complexity.",
+   hints:["A small founding family's DNA gets absorbed into a much larger existing population within a few generations — it disappears statistically","The Book of Mormon never claims Lehi's family were the only people in the Americas — they arrived to an already populated land","The Church's own Gospel Topics Essay on DNA openly acknowledges this and explains why no Israelite markers would be expected"],
+   scr:"Acts 17:26",scrN:"God made all nations from one blood — consistent with small founding populations whose distinct markers become absorbed over time",wrong:["Genesis 10:32","Romans 5:12"]},
+
+  {id:3,cat:1,
+   q:"When the papyri Joseph Smith used to produce the Book of Abraham were rediscovered at the Metropolitan Museum of Art in 1966, professional Egyptologists definitively identified them as standard 1st-century AD Egyptian funerary documents — the Book of Breathings Made by Isis — with zero connection to Abraham. Multiple independent Egyptologists confirmed the actual hieroglyphic text bears no resemblance whatsoever to Joseph Smith's claimed translation.",
+   ans:"LDS apologists offer two main defenses. First, the Missing Scroll theory: historical inventories suggest Joseph possessed a longer scroll now lost, which may have been the actual source. Second, the Catalyst theory supported in the Church's Gospel Topics Essay: the papyri served as a spiritual prompt and the actual text was received through independent revelation.",
+   hints:["The Missing Scroll theory — Joseph likely had a longer scroll that is now lost, and the surviving fragments may not be the actual source text","The Catalyst theory — the papyri may have prompted revelation without being the literal source, similar to how a picture can prompt prayer","The Church's own Gospel Topics Essay openly addresses this and supports the catalyst interpretation"],
+   scr:"Amos 3:7",scrN:"God reveals his secrets through his prophets — revelation can occur independently of any physical text source",wrong:["Hebrews 1:1","2 Peter 1:21"]},
+
+  {id:4,cat:1,
+   q:"Professional Egyptologists universally agree that Joseph Smith's explanations of the facsimiles in the Book of Abraham are demonstrably incorrect. Facsimile 1 depicts Anubis performing a standard embalming ritual — not an angel stopping a human sacrifice. Facsimile 3 shows a conventional Egyptian throne-room funerary court scene — not Abraham teaching astronomy to Pharaoh.",
+   ans:"LDS Egyptologists argue that Egyptian facsimiles were deliberately polysemous — designed to carry multiple valid ritual interpretations depending on liturgical context. The Abrahamic tradition genuinely existed in ancient Egypt, verified by extra-biblical sources, making a connection between Abraham's biography and Egyptian imagery historically plausible.",
+   hints:["Egyptian religious images were deliberately designed to carry multiple meanings — they weren't meant to have only one correct interpretation","Ancient Abraham traditions genuinely existed in Egypt, verified by texts like the Apocalypse of Abraham, making the connection historically plausible","Critics assume only one correct reading exists, but ancient Egyptian iconography intentionally layered multiple ritual meanings simultaneously"],
+   scr:"Genesis 12:10",scrN:"Abraham's actual documented sojourn in Egypt establishes the authentic historical connection",wrong:["Exodus 3:14","Hebrews 7:1"]},
+
+  {id:5,cat:2,
+   q:"Joseph Smith gave multiple significantly different accounts of the First Vision. The earliest known 1832 account mentions only Christ appearing with no mention of God the Father. The 1835 account introduces heavenly angels. The official 1838 account — published decades later — describes both God the Father and Jesus Christ appearing and condemning every existing Christian church. Critics argue this pattern of escalating accounts over twelve years demonstrates the narrative was invented over time.",
+   ans:"LDS apologists note that multiple accounts of the same profound event naturally vary in emphasis depending on audience, purpose, and time — all four Gospel accounts of Christ's resurrection differ significantly in detail without undermining the event's historicity. The 1832 account was a private journal entry emphasizing personal spiritual transformation.",
+   hints:["Multiple accounts of a real event always vary in detail — all four Gospels describe the resurrection differently without undermining it","The 1832 account was a private journal entry, not a public proclamation, so it naturally emphasizes personal spiritual aspects","Different audiences and purposes naturally draw out different details — this is normal for any profound life experience, not evidence of fabrication"],
+   scr:"James 1:5",scrN:"Ask of God who gives wisdom generously — the exact scripture Joseph was reading that prompted the First Vision",wrong:["Matthew 3:16","John 1:18"]},
+
+  {id:6,cat:2,
+   q:"In 1843 a set of brass plates discovered in Illinois was brought to Joseph Smith. Contemporary accounts say he declared he could translate them, claiming they contained history of a descendant of Ham. However, definitive metallurgical analysis in 1980 confirmed the Kinderhook plates were deliberate 19th-century forgeries. Critics argue this conclusively demonstrates Joseph Smith had no genuine prophetic translation ability.",
+   ans:"LDS apologists note that evidence Joseph actually completed a formal translation of the Kinderhook plates is more disputed than critics acknowledge. The primary source claiming a translation occurred was William Clayton's journal — a secondhand account. Joseph's own journal from that period is more ambiguous and noncommittal.",
+   hints:["The main claim that Joseph 'translated' them comes from a secondhand account in William Clayton's journal — Joseph's own journal is far more ambiguous","Joseph expressed general interest in the plates but there is no document showing he ever produced a completed formal translation","This is very different from the Book of Mormon where multiple witnesses observed an extended translation process over many months"],
+   scr:"Deuteronomy 18:22",scrN:"If a prophet's word does not come to pass, God did not send him — no formal Kinderhook translation was ever produced",wrong:["1 John 4:1","Matthew 7:15"]},
+
+  {id:7,cat:3,
+   q:"For decades throughout the 19th century, senior LDS Church leaders including Joseph Smith publicly and emphatically denied practicing polygamy even while secretly maintaining multiple simultaneous marriages. Joseph Smith denied polygamy as late as May 1844 — the year of his death — despite having over 30 documented wives. Critics argue this sustained deception by men claiming divine prophetic authority fundamentally undermines their credibility.",
+   ans:"LDS apologists acknowledge this is a genuinely difficult historical and moral complexity. Leaders operated within a theological framework where celestial marriage was considered too dangerous to disclose publicly in a violently hostile environment where armed mobs had already murdered members. Others contextualize it alongside the serious documented failures of beloved biblical prophets.",
+   hints:["The denials happened in a context of real physical danger — mobs had already murdered members and driven the Church from multiple states","LDS theology acknowledges prophets are fallible men — David, Moses, and Peter all had serious moral failures without losing their prophetic calling","Some apologists distinguish between protecting sacred things from hostile enemies versus malicious deception intended to harm innocent people"],
+   scr:"Romans 3:23",scrN:"All have sinned and fall short — prophetic fallibility is consistent with the entire biblical pattern",wrong:["Proverbs 12:22","Exodus 20:16"]},
+
+  {id:8,cat:3,
+   q:"Historical evidence clearly documents that senior LDS Church leaders continued secretly performing and personally entering new plural marriages well after the 1890 Manifesto — some as late as 1904, conducted in Mexico and Canada to evade American federal jurisdiction. President Joseph F. Smith admitted to Congress in 1904 that he had continued cohabiting with his plural wives after the Manifesto.",
+   ans:"LDS apologists acknowledge post-Manifesto polygamy occurred and represents genuine complexity. The Church's own Gospel Topics Essay addresses this honestly. The definitive Second Manifesto of 1904 more decisively ended the practice. Apologists argue the 1890 Manifesto represented genuine divine guidance in extreme political context.",
+   hints:["The Church's own Gospel Topics Essay openly acknowledges this happened and does not try to hide it","The 1890 Manifesto was specifically about not performing new plural marriages — some leaders interpreted existing marriages differently","The Second Manifesto in 1904 far more definitively and publicly ended all polygamous activity, showing the Church moved toward full compliance"],
+   scr:"Romans 13:1",scrN:"Submit to governing authorities — the 1890 Manifesto as divinely-guided accommodation to overwhelming legal reality",wrong:["Acts 5:29","Daniel 3:16"]},
+
+  {id:9,cat:4,
+   q:"From the founding of the LDS Church until June 1978 — a span of nearly 130 years — Black members were systematically barred from the Melchizedek priesthood and completely excluded from all temple ordinances. Early leaders including Brigham Young repeatedly taught this ban was divinely mandated, connected to the curse of Cain or pre-mortal choices. Critics argue the 1978 reversal came solely due to social pressure and Brazilian temple practicality — proving Church leadership is not divinely guided.",
+   ans:"The Church's own Gospel Topics Essay on Race and the Priesthood explicitly acknowledges the ban's true origins are not entirely clear and unequivocally disavows all past theological justifications. Spencer W. Kimball and the entire Quorum of the Twelve described a powerfully unmistakable Spirit-filled experience during extended prayer in the Salt Lake Temple in 1978.",
+   hints:["The Church's own Gospel Topics Essay openly disavows all past theological justifications like the Curse of Cain — the Church itself admits those reasons were wrong","President Kimball and all the Apostles described an undeniable spiritual experience in the Salt Lake Temple during extended prayer in 1978","The Brazil temple was announced two full years before the 1978 revelation, undermining the claim it was purely a practical decision about Brazil"],
+   scr:"Acts 10:34",scrN:"God is no respecter of persons — Peter's vision extending the Gospel to Gentiles is the direct biblical parallel",wrong:["Galatians 3:28","Colossians 3:11"]},
+
+  {id:10,cat:4,
+   q:"The Book of Mormon in 2 Nephi 5:21 describes a skin of blackness as a curse placed upon the Lamanites for rebellion against God. The pre-1981 edition of 2 Nephi 30:6 promised repentant Lamanites would become white and delightsome. In 1981 the Church quietly changed this phrase to pure and delightsome without formal announcement. Critics argue these passages establish a foundational racial theology connecting dark skin to divine punishment.",
+   ans:"LDS apologists argue that skin of blackness in the Book of Mormon's covenant narrative context refers to a spiritual or cultural mark of separation rather than literal racial skin color. Many Old Testament texts use similar mark language in explicitly non-racial ways. The Church's Gospel Topics Essay explicitly disavows any theology linking dark skin to divine punishment.",
+   hints:["In the Book of Mormon's covenant context, the mark likely refers to cultural or spiritual separation — not literal skin color or racial hierarchy","Many Old Testament passages use 'mark' language in clearly non-racial ways, showing this is a biblical pattern not unique to the Book of Mormon","The Church's Gospel Topics Essay explicitly and completely disavows any theology connecting skin color to spiritual standing or divine punishment"],
+   scr:"Galatians 3:28",scrN:"Neither Jew nor Greek in Christ — covenant status transcends all ethnic distinctions",wrong:["Numbers 12:10","Revelation 3:18"]},
+
+  {id:11,cat:5,
+   q:"A 2019 whistleblower complaint alleged that Ensign Peak Advisors — the LDS Church's primary investment arm — had accumulated approximately 100 billion dollars in assets, vastly exceeding anything needed for charitable or religious purposes. In 2023, the SEC fined the Church and Ensign Peak a combined 9 million dollars for deliberately using 13 shell companies to conceal the true massive size of their investment portfolio.",
+   ans:"LDS apologists argue the Church has a legitimate and thoroughly biblical basis for building substantial financial reserves — the Joseph in Egypt model of accumulating reserves during prosperity to prepare for catastrophic future crises. Regarding the SEC matter, the Church acknowledged the administrative violation while maintaining the underlying purpose was protective institutional privacy rather than financial fraud.",
+   hints:["The Joseph in Egypt model — storing reserves during prosperity to prepare for catastrophic future needs — is a direct biblical precedent for large financial reserves","The SEC fine was for a reporting violation, not for fraud or theft — the Church acknowledged it without admitting wrongful intent","The Church has historically faced government persecution and asset seizure, making large emergency reserves a rational institutional precaution"],
+   scr:"Genesis 41:34",scrN:"Joseph stored 20% of grain during years of plenty — the direct biblical precedent for building large financial reserves",wrong:["Matthew 19:21","Luke 16:13"]},
+
+  {id:12,cat:5,
+   q:"Critics highlight the stark contrast between the LDS Church's reported investment reserves of over 100 billion dollars and its reportedly modest humanitarian aid spending — some estimates placing it at less than 1% of total assets annually. The Church simultaneously requires a full 10% tithe of gross income as a strict prerequisite for temple attendance, applied equally to economically impoverished members in developing nations.",
+   ans:"LDS apologists defend tithing as a fundamental spiritual covenant that produces genuine blessings for participants regardless of financial circumstances. It is understood as an act of faith and covenant fidelity, not institutional fundraising. The Church provides significant humanitarian aid globally through LDS Philanthropies, the Bishop's Storehouse, and Deseret Industries.",
+   hints:["Tithing in LDS theology is a spiritual covenant and act of faith — not just a fundraising mechanism — and is understood to produce real blessings for the giver","The Church runs one of the largest private welfare systems in the world through the Bishop's Storehouse, Deseret Industries, and LDS Philanthropies","The widow's mite principle teaches that sacrificial giving has spiritual value regardless of the institution's total wealth — the two are not directly connected"],
+   scr:"Malachi 3:10",scrN:"Bring all the tithes into the storehouse and prove me herewith — the foundational commandment and promise behind LDS tithing",wrong:["Luke 21:1","Matthew 23:23"]},
+
+  {id:13,cat:6,
+   q:"In November 2015 the LDS Church updated its official handbook to prohibit the minor children of same-sex couples from receiving baptism or baby blessings until they turned 18. Mental health professionals and LGBTQ advocates widely condemned this policy, arguing it unjustly punished innocent children and contributed to documented increases in depression and suicide among LGBTQ Latter-day Saints. The policy was reversed in April 2019.",
+   ans:"LDS apologists note the policy was never intended to punish children but was an attempt to prevent painful spiritual conflict within households where children would be simultaneously taught in Church that same-sex marriage was contrary to God's law and at home that their parents' relationship was valid. The reversal demonstrated genuine prophetic sensitivity and willingness to course-correct.",
+   hints:["The policy was intended to protect children from being caught between conflicting teachings at home and at Church — not to punish them for their parents' choices","The reversal in 2019 is itself evidence that Church leaders listen, adjust course, and correct unintended harm — consistent with prophetic pastoral sensitivity","The Church's core doctrinal position on marriage between a man and a woman has remained consistent — only the pastoral policy around children changed"],
+   scr:"Matthew 19:14",scrN:"Suffer the little children to come unto me — Christ's clear command to welcome children",wrong:["1 Corinthians 7:14","Deuteronomy 24:16"]},
+
+  {id:14,cat:6,
+   q:"Critics argue the LDS Church's exclusion of women from the Melchizedek priesthood and from the highest positions of institutional leadership creates a fundamentally unequal and spiritually diminishing second-class religious status for women. Critics argue this institutionalized patriarchal structure contradicts Paul's declaration that there is neither male nor female in Christ.",
+   ans:"LDS apologists argue that priesthood in LDS theology is a specific stewardship of service and not a mark of personal superiority or spiritual standing. Women exercise genuine authority through the Relief Society, Young Women, and Primary organizations, and participate in temple ordinances as equal covenant partners. Men and women are co-equal in eternal standing and are jointly exalted through eternal marriage.",
+   hints:["In LDS theology priesthood is a stewardship of service, not a measure of spiritual worth or standing — women are not spiritually inferior for not holding it","Women hold genuine organizational authority in the Relief Society, Young Women, and Primary — three of the largest organizations in the Church","LDS eternal marriage theology places men and women as co-equal partners in exaltation — neither can be exalted without the other"],
+   scr:"Galatians 3:28",scrN:"Neither male nor female in Christ — spiritual equality fully realized in LDS eternal marriage theology",wrong:["1 Timothy 2:12","1 Corinthians 14:34"]},
+
+  {id:15,cat:7,
+   q:"Critics point to multiple high-profile LDS scholars and advocates who were formally excommunicated — notably the September Six in 1993 and later John Dehlin, Kate Kelly, and others — not for moral failures but specifically for publicly sharing documented historical facts or organizing member advocacy groups. Critics argue these actions reveal a deeply authoritarian institutional culture that silences truth-tellers.",
+   ans:"LDS apologists distinguish between legitimate historical inquiry — which the Church actively encourages through its own Gospel Topics Essays — and organized public advocacy campaigns specifically designed to generate media pressure for institutional policy changes or to publicly undermine the testimonies of other members.",
+   hints:["The Church actively encourages historical inquiry through its own Gospel Topics Essays and supports extensive scholarly research at BYU and Church History Department","The disciplinary actions targeted organized public campaigns to pressure the Church and undermine other members' faith — not simply asking questions or researching history","Many LDS scholars research and write openly about difficult historical topics without any disciplinary action because they do so within constructive boundaries"],
+   scr:"Matthew 18:15",scrN:"Go to your brother privately first — the biblical pattern of graduated personal correction",wrong:["Matthew 7:1","John 8:7"]},
+
+  {id:16,cat:7,
+   q:"Critics argue that LDS institutional culture encourages members to follow prophetic counsel without sufficient critical analysis — expressed in statements like the seminary manual quote that when the prophet speaks the thinking is done, and Elder Oaks's statement that members should not criticize Church leaders even when the criticism is true. Critics contend this creates a dangerous epistemically dependent culture.",
+   ans:"LDS apologists clarify that the Church does not formally teach blind obedience — Joseph Smith himself explicitly rejected the idea that he intended to make himself a controlling authority over members' personal thinking. LDS theology actively encourages personal revelation, independent scripture study, and personal spiritual confirmation through the Holy Ghost.",
+   hints:["Joseph Smith explicitly and repeatedly rejected the idea of controlling members' thinking — he said a religion that cannot stand investigation is not worth following","LDS theology requires each member to gain their own personal testimony through prayer and study — the Holy Ghost is the ultimate authority, not any leader","D&C 9:7 explicitly teaches members to study things out in their own minds before seeking divine confirmation — that is a command to think independently"],
+   scr:"Acts 17:11",scrN:"The Bereans searched the scriptures daily to verify what they heard — the biblical model of independent personal verification",wrong:["Hebrews 13:17","Romans 13:1"]},
+
+  {id:17,cat:8,
+   q:"The LDS temple endowment ceremony shares remarkably specific structural similarities with Masonic ritual, including ceremonial handshakes with specific grip positions, penalty oaths, ceremonial clothing and aprons, passwords associated with specific signs, and the symbolic narrative journey from spiritual ignorance to divine knowledge. Joseph Smith was formally initiated as a Freemason in March 1842 and introduced the first temple endowment ceremony just seven weeks later.",
+   ans:"LDS apologists argue the similarities between Masonic ritual and the LDS endowment point to a common ancient source rather than modern invention. Both Masonry and the LDS endowment preserve fragmentary elements of ancient Israelite and Near Eastern temple initiation ceremonies. Joseph Smith claimed to see in Masonry a corrupted version of original ancient temple ritual and to restore that original.",
+   hints:["LDS apologists argue both Masonry and the endowment draw from the same ancient source — original Israelite temple worship — rather than Joseph copying Masonry","Ancient Near Eastern temple initiation ceremonies genuinely existed and contained many of the same elements, giving both Masonry and the endowment a common ancestor","The specific theological content of the endowment — its creation narrative, covenant structure, and cosmology — is entirely different from Masonry and cannot be explained by borrowing"],
+   scr:"1 Kings 6:19",scrN:"The inner sanctuary of Solomon's Temple — the ancient Israelite temple tradition is the shared deep source",wrong:["Exodus 28:2","Leviticus 8:7"]},
+
+  {id:18,cat:8,
+   q:"Brigham Young publicly and repeatedly taught what became known as the Adam-God Theory — that Adam, who came to this earth as the archangel Michael, is literally our Heavenly Father and that Jesus Christ was conceived by Adam in the flesh. This doctrine was taught from the highest level of LDS leadership in General Conference sermons for decades.",
+   ans:"LDS apologists and all modern Church leadership have explicitly and unequivocally disavowed the Adam-God Theory as false doctrine. President Spencer W. Kimball specifically identified it as false doctrine in 1976. Apologists argue Brigham Young's statements appear to represent personal speculative theological exploration rather than formal binding canonized revelation.",
+   hints:["Modern Church leadership has completely and explicitly disavowed the Adam-God Theory — it is not accepted LDS doctrine today and never made it into the canon","LDS theology distinguishes between a prophet's personal speculative opinions and formally canonized revelation — prophets can be wrong about things outside their revelatory role","The canonical scriptures in Moses 1-4 and D&C 29 clearly and unmistakably distinguish God the Father from Adam, contradicting the theory directly"],
+   scr:"Moses 1:3",scrN:"God's identity is clearly distinguished from Adam in the Pearl of Great Price — directly contradicting the Adam-God Theory",wrong:["Abraham 3:22","D&C 76:24"]},
+
+  {id:19,cat:9,
+   q:"Critics note that President Russell M. Nelson has made correction of the nickname Mormon a prominent institutional priority, insisting on the full official Church name and describing the use of Mormon in terms many members and observers found strikingly hyperbolic — particularly given the Church's own long history of actively promoting the mormon.org website and branding for decades.",
+   ans:"LDS apologists explain that President Nelson's initiative reflects a sincere and substantive theological concern: that the Church's popular nickname obscures its central foundational claim — that Jesus Christ personally and literally restored His original church in the latter days. The full official name places Christ explicitly at the center of the institution's identity.",
+   hints:["The initiative is about placing Jesus Christ's name at the center of the Church's identity — a sincere theological concern, not mere institutional branding","The early Christian church similarly insisted on being called Christians rather than accepting other labels — Christ-centered naming has always mattered theologically","Past use of Mormon as a brand doesn't make it theologically accurate — institutions can recognize and correct branding decisions that obscure their core identity"],
+   scr:"Acts 11:26",scrN:"The disciples were first called Christians at Antioch — the early church insisted on Christ-centered identification",wrong:["Revelation 2:17","Philippians 2:9"]},
+
+  {id:20,cat:9,
+   q:"Critics document what they describe as declining active membership engagement in the Western world, including chapel closures, declining mission applications, and statistical evidence suggesting that actual weekly attendance may be dramatically lower than official membership rolls indicate. They argue these trends demonstrate the Church is experiencing a major credibility crisis driven by the unprecedented availability of comprehensive historical information through the internet.",
+   ans:"LDS apologists acknowledge the Church faces genuine challenges in an information-saturated, increasingly secular Western cultural environment. However, the global picture is significantly more complex: the Church continues growing substantially in Africa, Latin America, Southeast Asia, and other regions. The Gospel Topics Essays represent a genuine institutional commitment to historical transparency.",
+   hints:["Western membership challenges are real but represent only part of the picture — the Church is growing rapidly in Africa, Latin America, and Southeast Asia","Every major traditional religious institution in the Western world is facing similar secular challenges — this is not unique to the LDS Church","The Gospel Topics Essays show the Church proactively engaging with difficult history rather than hiding it — a sign of institutional confidence, not crisis"],
+   scr:"Daniel 2:44",scrN:"The stone cut without hands that fills the whole earth — Nebuchadnezzar's prophetic vision of the Church's ultimate global destiny",wrong:["Matthew 24:24","Revelation 6:9"]},
 ];
 
 function shuffle(arr){return [...arr].sort(()=>Math.random()-.5);}
@@ -242,7 +355,9 @@ function App(){
   const [wheelAngle,setWheelAngle]=useState(0);
   const [spinning,setSpinning]=useState(false);
   const [landedCat,setLandedCat]=useState(null);
-  const [adminQ,setAdminQ]=useState({cat:0,q:'',ans:'',scr:'',scrN:'',w1:'',w2:''});
+  const [hintShown,setHintShown]=useState(false);
+  const [hintPenaltyApplied,setHintPenaltyApplied]=useState(false);
+  const [adminQ,setAdminQ]=useState({cat:0,q:'',ans:'',scr:'',scrN:'',w1:'',w2:'',h1:'',h2:'',h3:''});
   const [adminMsg,setAdminMsg]=useState('');
   const [adminPw,setAdminPw]=useState('');
   const [showAdminLogin,setShowAdminLogin]=useState(false);
@@ -252,16 +367,12 @@ function App(){
   const timerRef=useRef(null);
   const recognitionRef=useRef(null);
   const MAX_ROUNDS=10;
-
   const micSupported=!!(window.SpeechRecognition||window.webkitSpeechRecognition);
 
   useEffect(()=>{drawWheel(wheelRef.current,wheelAngle);},[wheelAngle]);
 
   useEffect(()=>{
-    if(screen!=='question'){
-      clearInterval(timerRef.current);
-      return;
-    }
+    if(screen!=='question'){clearInterval(timerRef.current);return;}
     clearInterval(timerRef.current);
     timerRef.current=setInterval(()=>{
       const elapsed=(Date.now()-timerStart)/1000;
@@ -300,69 +411,49 @@ function App(){
   },[qs,usedIds]);
 
   const stopMic=()=>{
-    if(recognitionRef.current){
-      try{recognitionRef.current.stop();}catch(e){}
-      recognitionRef.current=null;
-    }
-    setListening(false);
-    setMicStatus('');
+    if(recognitionRef.current){try{recognitionRef.current.stop();}catch(e){}recognitionRef.current=null;}
+    setListening(false);setMicStatus('');
   };
 
   const toggleMic=()=>{
-    if(!micSupported){
-      alert('Voice input is not supported in this browser. Please use Chrome or Safari.');
-      return;
-    }
-    if(listening){
-      stopMic();
-      return;
-    }
+    if(!micSupported){alert('Voice input is not supported in this browser. Please use Chrome or Safari.');return;}
+    if(listening){stopMic();return;}
     const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
     const rec=new SR();
-    rec.continuous=true;
-    rec.interimResults=true;
-    rec.lang='en-US';
-    rec.onstart=()=>{
-      setListening(true);
-      setMicStatus('🎤 Listening… speak your answer');
-    };
+    rec.continuous=true;rec.interimResults=true;rec.lang='en-US';
+    rec.onstart=()=>{setListening(true);setMicStatus('🎤 Listening… speak your answer');};
     rec.onresult=(e)=>{
-      let interim='';
-      let finalText='';
+      let interim='',finalText='';
       for(let i=e.resultIndex;i<e.results.length;i++){
         const t=e.results[i][0].transcript;
-        if(e.results[i].isFinal){finalText+=t;}
-        else{interim+=t;}
+        if(e.results[i].isFinal)finalText+=t;else interim+=t;
       }
-      if(finalText){
-        setAnswer(prev=>{
-          const base=prev.trim();
-          return base?base+' '+finalText.trim():finalText.trim();
-        });
-      }
-      if(interim){setMicStatus('💬 '+interim);}
-      else{setMicStatus('🎤 Listening… speak your answer');}
+      if(finalText)setAnswer(prev=>{const b=prev.trim();return b?b+' '+finalText.trim():finalText.trim();});
+      setMicStatus(interim?'💬 '+interim:'🎤 Listening… speak your answer');
     };
-    rec.onerror=(e)=>{
-      setMicStatus('❌ Mic error: '+e.error);
-      setListening(false);
-      recognitionRef.current=null;
-    };
-    rec.onend=()=>{
-      setListening(false);
-      setMicStatus('✅ Done — review your answer and submit');
-      recognitionRef.current=null;
-    };
-    recognitionRef.current=rec;
-    rec.start();
+    rec.onerror=(e)=>{setMicStatus('❌ Mic error: '+e.error);setListening(false);recognitionRef.current=null;};
+    rec.onend=()=>{setListening(false);setMicStatus('✅ Done — review your answer and submit');recognitionRef.current=null;};
+    recognitionRef.current=rec;rec.start();
+  };
+
+  const showHint=()=>{
+    if(hintShown)return;
+    setHintShown(true);
+    if(!hintPenaltyApplied){
+      setHintPenaltyApplied(true);
+      // Deduct 3 points from current player (floor at 0 total)
+      setPlayers(prev=>prev.map((p,i)=>{
+        if(i!==current)return p;
+        return{...p,total:Math.max(0,p.total-HINT_PENALTY)};
+      }));
+    }
   };
 
   const spinWheel=()=>{
     if(spinning)return;
     const avail=getAvailCats();
     if(!avail.length){doEndGame();return;}
-    setSpinning(true);
-    setLandedCat(null);
+    setSpinning(true);setLandedCat(null);
     const tgt=avail[Math.floor(Math.random()*avail.length)];
     const n=CATS.length,arc=Math.PI*2/n;
     const extra=(8+Math.floor(Math.random()*5))*Math.PI*2;
@@ -379,69 +470,44 @@ function App(){
         setSpinning(false);
         const cat=getWheelCat(ang);
         setLandedCat(cat);
-        // Short delay to show the category reveal before launching question
-        setTimeout(()=>{
-          setLandedCat(null);
-          launchQuestion(cat,false,[]);
-        },1800);
+        setTimeout(()=>{setLandedCat(null);launchQuestion(cat,false,[]);},1800);
       }
     };
     requestAnimationFrame(step);
   };
 
   const launchQuestion=(catIdx,steal,queue,ids=usedIds)=>{
-    // Shuffle pool so questions within a category appear in random order every game
     let pool=shuffle(qs.filter(q=>q.cat===catIdx&&!ids.includes(q.id)));
     if(!pool.length)pool=shuffle(qs.filter(q=>!ids.includes(q.id)));
     if(!pool.length){doEndGame();return;}
     const q=pool[0];
-    const nextIds=[...ids,q.id];
-    setUsedIds(nextIds);
-    setCurrentQ(q);
-    setIsSteal(steal);
-    setStealQueue(queue);
-    setAnswer('');
-    setSubmitDisabled(false);
-    setSubmitLabel('📝 Submit Answer');
-    setTimerStart(Date.now());
-    setTimerSecs(TIMER_TOTAL);
-    stopMic();
-    setMicStatus('');
+    setUsedIds([...ids,q.id]);
+    setCurrentQ(q);setIsSteal(steal);setStealQueue(queue);
+    setAnswer('');setSubmitDisabled(false);setSubmitLabel('📝 Submit Answer');
+    setTimerStart(Date.now());setTimerSecs(TIMER_TOTAL);
+    setHintShown(false);setHintPenaltyApplied(false);
+    stopMic();setMicStatus('');
     setScreen('question');
   };
 
   const handleTimeOut=()=>{
-    clearInterval(timerRef.current);
-    setSubmitDisabled(true);
-    stopMic();
-    doRedFlash();
+    clearInterval(timerRef.current);setSubmitDisabled(true);stopMic();doRedFlash();
     const others=players.map((_,i)=>i).filter(i=>i!==current);
     if(others.length>0){
-      const nextStealer=others[0];
-      const rest=others.slice(1);
-      setFeedback({
-        emoji:'⏰',ptsText:'Time\'s up! 0 pts',ptsCol:'#e05c5c',
-        text:'No answer in time.',
-        apol:currentQ?currentQ.ans:'',
-        scr:currentQ?currentQ.scr+' — '+currentQ.scrN:'',
+      const nextStealer=others[0],rest=others.slice(1);
+      setFeedback({emoji:'⏰',ptsText:"Time's up! 0 pts",ptsCol:'#e05c5c',
+        text:'No answer in time.',apol:currentQ?currentQ.ans:'',scr:currentQ?currentQ.scr+' — '+currentQ.scrN:'',
         onClose:()=>{
-          setFeedback(null);
-          setCurrent(nextStealer);
-          setIsSteal(true);
-          setStealQueue(rest);
-          setTimerStart(Date.now());
-          setTimerSecs(TIMER_TOTAL);
-          setSubmitDisabled(false);
-          setSubmitLabel('📝 Submit Answer');
+          setFeedback(null);setCurrent(nextStealer);setIsSteal(true);setStealQueue(rest);
+          setTimerStart(Date.now());setTimerSecs(TIMER_TOTAL);
+          setSubmitDisabled(false);setSubmitLabel('📝 Submit Answer');
+          setHintShown(false);setHintPenaltyApplied(false);
           setScreen('question');
         },
       });
     } else {
-      setFeedback({
-        emoji:'⏰',ptsText:'Time\'s up! 0 pts',ptsCol:'#e05c5c',
-        text:'No points awarded.',
-        apol:currentQ?currentQ.ans:'',
-        scr:currentQ?currentQ.scr+' — '+currentQ.scrN:'',
+      setFeedback({emoji:'⏰',ptsText:"Time's up! 0 pts",ptsCol:'#e05c5c',
+        text:'No points awarded.',apol:currentQ?currentQ.ans:'',scr:currentQ?currentQ.scr+' — '+currentQ.scrN:'',
         onClose:()=>{setFeedback(null);advanceTurn();},
       });
     }
@@ -449,113 +515,77 @@ function App(){
 
   const submitAnswer=async()=>{
     if(!answer.trim())return;
-    clearInterval(timerRef.current);
-    stopMic();
+    clearInterval(timerRef.current);stopMic();
     const ts=getTimeScore();
-    setSubmitDisabled(true);
-    setSubmitLabel('⏳ Evaluating…');
-    let rating='wrong';
-    let fbText='';
+    const penaltyNote=hintPenaltyApplied?' (Note: 3-point hint penalty was already deducted from score)':'';
+    setSubmitDisabled(true);setSubmitLabel('⏳ Evaluating…');
+    let rating='wrong',fbText='';
     try{
       const resp=await fetch('/api/evaluate',{
         method:'POST',
         headers:{'Content-Type':'application/json'},
         body:JSON.stringify({
-          model:'claude-sonnet-4-20250514',
-          max_tokens:350,
-          system:'You are a judge in an LDS apologetics trivia game. Evaluate the player answer as "correct" (solid understanding of the LDS apologetic position), "partial" (partially correct, missing key elements), or "wrong" (incorrect or very incomplete). Reply ONLY with valid JSON: {"rating":"correct|partial|wrong","feedback":"1-2 specific sentences explaining the rating and what the ideal answer covers"}',
-          messages:[{role:'user',content:'CRITICISM:\n'+currentQ.q+'\n\nIDEAL ANSWER:\n'+currentQ.ans+'\n\nPLAYER ANSWER:\n'+answer}],
+          model:'claude-sonnet-4-20250514',max_tokens:400,
+          system:'You are a fair and encouraging judge in an LDS apologetics trivia game played by everyday Church members — not scholars. Evaluate whether the player demonstrates understanding of the CORE apologetic principle, not whether they mention every scholar or detail. Award "correct" if they clearly understand the main apologetic response even if they do not cite specific historians or name every argument. Award "partial" if they show genuine awareness of the topic but miss the central point. Award "wrong" only if their answer is clearly off-track or shows no understanding of the apologetic response. Be generous — reward conceptual understanding over encyclopedic completeness. Reply ONLY with valid JSON: {"rating":"correct|partial|wrong","feedback":"1-2 encouraging sentences explaining the rating and what the ideal answer focuses on"}',
+          messages:[{role:'user',content:'CRITICISM:\n'+currentQ.q+'\n\nKEY CONCEPTS TO HIT:\n'+currentQ.hints.map((h,i)=>(i+1)+'. '+h).join('\n')+'\n\nIDEAL ANSWER:\n'+currentQ.ans+'\n\nPLAYER ANSWER:\n'+answer+penaltyNote}],
         }),
       });
       const data=await resp.json();
       const raw=(data.content&&data.content[0]&&data.content[0].text)||'{}';
       const parsed=JSON.parse(raw.replace(/```json|```/g,'').trim());
-      rating=parsed.rating||'wrong';
-      fbText=parsed.feedback||'';
-    }catch(e){
-      fbText='Could not evaluate: '+e.message;
-      rating='wrong';
-    }
+      rating=parsed.rating||'wrong';fbText=parsed.feedback||'';
+    }catch(e){fbText='Could not evaluate: '+e.message;rating='wrong';}
     setSubmitLabel('📝 Submit Answer');
     let pts=0,emoji='❌',ptsCol='#e05c5c';
     if(rating==='correct'){pts=ts;emoji='🎉';ptsCol='#5aab6a';}
     else if(rating==='partial'){pts=Math.ceil(ts/2);emoji='🤔';ptsCol='#c4a63a';}
     if(pts>0){addPoints(current,currentQ.cat,pts);doConfetti();}
-    else{doRedFlash();}
-
+    else doRedFlash();
     const currentStealQueue=stealQueue;
     setFeedback({
-      emoji,
-      ptsText:pts>0?'+'+pts+' points!':'0 points',
-      ptsCol,
-      text:fbText,
-      apol:currentQ.ans,
-      scr:currentQ.scr+' — '+currentQ.scrN,
+      emoji,ptsText:pts>0?'+'+pts+' points!':'0 points',ptsCol,
+      text:fbText+(hintPenaltyApplied?' (−3 hint penalty already applied)':''),
+      apol:currentQ.ans,scr:currentQ.scr+' — '+currentQ.scrN,
       onClose:()=>{
         setFeedback(null);
-        if(pts>0){
-          showBonus();
-        } else if(currentStealQueue.length>0){
-          const nextStealer=currentStealQueue[0];
-          const rest=currentStealQueue.slice(1);
-          setFeedback({
-            emoji:'🔥',ptsText:'STEAL!',ptsCol:'#9b5fd4',
+        if(pts>0){showBonus();}
+        else if(currentStealQueue.length>0){
+          const nextStealer=currentStealQueue[0],rest=currentStealQueue.slice(1);
+          setFeedback({emoji:'🔥',ptsText:'STEAL!',ptsCol:'#9b5fd4',
             text:(players[nextStealer]?players[nextStealer].name:'Next player')+', steal opportunity! Answer for points.',
             apol:'',scr:'',
             onClose:()=>{
-              setCurrent(nextStealer);
-              setIsSteal(true);
-              setStealQueue(rest);
-              setTimerStart(Date.now());
-              setTimerSecs(TIMER_TOTAL);
-              setSubmitDisabled(false);
-              setSubmitLabel('📝 Submit Answer');
-              setAnswer('');
-              setMicStatus('');
-              setFeedback(null);
-              setScreen('question');
+              setCurrent(nextStealer);setIsSteal(true);setStealQueue(rest);
+              setTimerStart(Date.now());setTimerSecs(TIMER_TOTAL);
+              setSubmitDisabled(false);setSubmitLabel('📝 Submit Answer');setAnswer('');
+              setHintShown(false);setHintPenaltyApplied(false);
+              setMicStatus('');setFeedback(null);setScreen('question');
             },
           });
-        } else {
-          advanceTurn();
-        }
+        } else advanceTurn();
       },
     });
   };
 
   const skipQuestion=()=>{
-    clearInterval(timerRef.current);
-    setSubmitDisabled(true);
-    stopMic();
-    doRedFlash();
+    clearInterval(timerRef.current);setSubmitDisabled(true);stopMic();doRedFlash();
     const others=players.map((_,i)=>i).filter(i=>i!==current);
     if(others.length>0){
-      const nextStealer=others[0];
-      const rest=others.slice(1);
-      setFeedback({
-        emoji:'⏭️',ptsText:'Skipped',ptsCol:'#aaa',
+      const nextStealer=others[0],rest=others.slice(1);
+      setFeedback({emoji:'⏭️',ptsText:'Skipped',ptsCol:'#aaa',
         text:(players[current]?players[current].name:'Player')+' skipped. '+(players[nextStealer]?players[nextStealer].name:'Next player')+', steal opportunity!',
         apol:currentQ.ans,scr:'',
         onClose:()=>{
-          setCurrent(nextStealer);
-          setIsSteal(true);
-          setStealQueue(rest);
-          setTimerStart(Date.now());
-          setTimerSecs(TIMER_TOTAL);
-          setSubmitDisabled(false);
-          setSubmitLabel('📝 Submit Answer');
-          setAnswer('');
-          setMicStatus('');
-          setFeedback(null);
-          setScreen('question');
+          setCurrent(nextStealer);setIsSteal(true);setStealQueue(rest);
+          setTimerStart(Date.now());setTimerSecs(TIMER_TOTAL);
+          setSubmitDisabled(false);setSubmitLabel('📝 Submit Answer');setAnswer('');
+          setHintShown(false);setHintPenaltyApplied(false);
+          setMicStatus('');setFeedback(null);setScreen('question');
         },
       });
     } else {
-      setFeedback({
-        emoji:'⏭️',ptsText:'0 pts',ptsCol:'#aaa',
-        text:'No points awarded.',
-        apol:currentQ.ans,
-        scr:currentQ.scr+' — '+currentQ.scrN,
+      setFeedback({emoji:'⏭️',ptsText:'0 pts',ptsCol:'#aaa',text:'No points awarded.',
+        apol:currentQ.ans,scr:currentQ.scr+' — '+currentQ.scrN,
         onClose:()=>{setFeedback(null);advanceTurn();},
       });
     }
@@ -567,121 +597,58 @@ function App(){
       {ref:currentQ.wrong[0],note:'',correct:false},
       {ref:currentQ.wrong[1],note:'',correct:false},
     ]);
-    setBonusOpts(opts);
-    setBonusPicked(null);
-    setScreen('bonus');
+    setBonusOpts(opts);setBonusPicked(null);setScreen('bonus');
   };
 
   const pickBonus=(idx)=>{
     setBonusPicked(idx);
     const opt=bonusOpts[idx];
     if(opt.correct){
-      addPoints(current,currentQ.cat,10);
-      doConfetti();
-      setTimeout(()=>{
-        setFeedback({
-          emoji:'📖',ptsText:'+10 Bonus!',ptsCol:'#ffd700',
-          text:'Correct! '+opt.ref+(opt.note?' — '+opt.note:''),
-          apol:'',scr:'',
-          onClose:advanceTurn,
-        });
-      },700);
+      addPoints(current,currentQ.cat,10);doConfetti();
+      setTimeout(()=>{setFeedback({emoji:'📖',ptsText:'+10 Bonus!',ptsCol:'#ffd700',
+        text:'Correct! '+opt.ref+(opt.note?' — '+opt.note:''),apol:'',scr:'',onClose:advanceTurn});},700);
     } else {
       doRedFlash();
-      setTimeout(()=>{
-        setFeedback({
-          emoji:'📖',ptsText:'0 Bonus',ptsCol:'#e05c5c',
-          text:'Correct answer: '+currentQ.scr+' — '+currentQ.scrN,
-          apol:'',scr:'',
-          onClose:advanceTurn,
-        });
-      },700);
+      setTimeout(()=>{setFeedback({emoji:'📖',ptsText:'0 Bonus',ptsCol:'#e05c5c',
+        text:'Correct answer: '+currentQ.scr+' — '+currentQ.scrN,apol:'',scr:'',onClose:advanceTurn});},700);
     }
   };
 
   const advanceTurn=()=>{
-    setFeedback(null);
-    setIsSteal(false);
-    setStealQueue([]);
+    setFeedback(null);setIsSteal(false);setStealQueue([]);
     const nextRound=round+1;
-    if(nextRound>=MAX_ROUNDS||!getAvailCats().length){
-      doEndGame();
-      return;
-    }
-    setRound(nextRound);
-    setCurrent(nextRound%numPlayers);
-    setScreen('spin');
+    if(nextRound>=MAX_ROUNDS||!getAvailCats().length){doEndGame();return;}
+    setRound(nextRound);setCurrent(nextRound%numPlayers);setScreen('spin');
   };
 
-  const doEndGame=()=>{
-    setFeedback(null);
-    setScreen('final');
-    doConfetti();
-  };
+  const doEndGame=()=>{setFeedback(null);setScreen('final');doConfetti();};
 
   const startGame=()=>{
-    const ps=Array.from({length:numPlayers},(_,i)=>({
-      name:playerNames[i]||DEFAULT_NAMES[i],
-      total:0,
-      cats:{},
-    }));
-    setPlayers(ps);
-    setRound(0);
-    setCurrent(0);
-    setUsedIds([]);
-    setIsSteal(false);
-    setStealQueue([]);
-    setWheelAngle(0);
-    setLandedCat(null);
-    // Shuffle question bank at game start so order is always different
-    setQs(shuffle(INIT_QS));
-    setScreen('spin');
+    const ps=Array.from({length:numPlayers},(_,i)=>({name:playerNames[i]||DEFAULT_NAMES[i],total:0,cats:{}}));
+    setPlayers(ps);setRound(0);setCurrent(0);setUsedIds([]);setIsSteal(false);setStealQueue([]);
+    setWheelAngle(0);setLandedCat(null);setQs(shuffle(INIT_QS));setScreen('spin');
   };
 
   const resetGame=()=>{
-    stopMic();
-    setScreen('setup');
-    setPlayers([]);
-    setNumPlayers(2);
-    setPlayerNames(['Player 1','Player 2','Player 3']);
-    setCurrent(0);
-    setRound(0);
-    setUsedIds([]);
-    setCurrentQ(null);
-    setIsSteal(false);
-    setStealQueue([]);
-    setTimerSecs(TIMER_TOTAL);
-    setTimerStart(null);
-    setAnswer('');
-    setSubmitDisabled(false);
-    setSubmitLabel('📝 Submit Answer');
-    setFeedback(null);
-    setBonusOpts([]);
-    setBonusPicked(null);
-    setFlashRed(false);
-    setConfettiParts([]);
-    setQs(INIT_QS);
-    setWheelAngle(0);
-    setSpinning(false);
-    setAdminQ({cat:0,q:'',ans:'',scr:'',scrN:'',w1:'',w2:''});
-    setAdminMsg('');
-    setAdminPw('');
-    setShowAdminLogin(false);
-    setListening(false);
-    setMicStatus('');
+    stopMic();setScreen('setup');setPlayers([]);setNumPlayers(2);
+    setPlayerNames(['Player 1','Player 2','Player 3']);setCurrent(0);setRound(0);setUsedIds([]);
+    setCurrentQ(null);setIsSteal(false);setStealQueue([]);setTimerSecs(TIMER_TOTAL);setTimerStart(null);
+    setAnswer('');setSubmitDisabled(false);setSubmitLabel('📝 Submit Answer');setFeedback(null);
+    setBonusOpts([]);setBonusPicked(null);setFlashRed(false);setConfettiParts([]);setQs(INIT_QS);
+    setWheelAngle(0);setSpinning(false);setLandedCat(null);
+    setHintShown(false);setHintPenaltyApplied(false);
+    setAdminQ({cat:0,q:'',ans:'',scr:'',scrN:'',w1:'',w2:'',h1:'',h2:'',h3:''});
+    setAdminMsg('');setAdminPw('');setShowAdminLogin(false);setListening(false);setMicStatus('');
   };
 
   const timerPct=timerSecs/TIMER_TOTAL;
   const circ=2*Math.PI*30;
   const timerCol=timerSecs>300?'#5aab6a':timerSecs>150?'#c4a63a':'#e05c5c';
-  const timerM=Math.floor(timerSecs/60);
-  const timerS=Math.floor(timerSecs%60);
+  const timerM=Math.floor(timerSecs/60),timerS=Math.floor(timerSecs%60);
   const elapsed=timerStart?(Date.now()-timerStart)/1000:0;
   const currentPts=calcPoints(elapsed);
   const inFullPtZone=timerSecs>300;
-  const rankedPlayers=players.length>0
-    ?[...players].map((p,i)=>({...p,idx:i})).sort((a,b)=>b.total-a.total)
-    :[];
+  const rankedPlayers=players.length>0?[...players].map((p,i)=>({...p,idx:i})).sort((a,b)=>b.total-a.total):[];
 
   return (
     <>
@@ -706,9 +673,9 @@ function App(){
           <div className="fb-box" style={{maxWidth:360}}>
             <div style={{fontSize:'1.8rem',fontWeight:900,color:'#ffd700',marginBottom:14}}>⚙️ Admin Login</div>
             <input type="password" placeholder="Password" value={adminPw} onChange={e=>setAdminPw(e.target.value)}
-              onKeyDown={e=>{if(e.key==='Enter'){if(adminPw==='Timothy'){setShowAdminLogin(false);setScreen('admin');}else{alert('Wrong password.');}}}}/>
+              onKeyDown={e=>{if(e.key==='Enter'){if(adminPw==='Timothy'){setShowAdminLogin(false);setScreen('admin');}else alert('Wrong password.');}}}/>
             <div className="btn-row">
-              <button className="btn btn-gold" onClick={()=>{if(adminPw==='Timothy'){setShowAdminLogin(false);setScreen('admin');}else{alert('Wrong password.');}}}>Enter</button>
+              <button className="btn btn-gold" onClick={()=>{if(adminPw==='Timothy'){setShowAdminLogin(false);setScreen('admin');}else alert('Wrong password.');}}>Enter</button>
               <button className="btn btn-red" onClick={()=>setShowAdminLogin(false)}>Cancel</button>
             </div>
           </div>
@@ -736,12 +703,12 @@ function App(){
           ))}
         </div>
         <div className="card" style={{maxWidth:520}}>
-          <h2>⏱️ Timer Rules</h2>
+          <h2>⏱️ Timer & Hints</h2>
           <p style={{color:'#ccc',fontSize:'.9rem',lineHeight:1.7}}>
             Each question gives you <strong style={{color:'#ffd700'}}>10 minutes</strong> to answer.<br/>
             Full <strong style={{color:'#5aab6a'}}>10 points</strong> for answering within the first <strong style={{color:'#5aab6a'}}>5 minutes</strong>.<br/>
             After 5 minutes you lose <strong style={{color:'#c4a63a'}}>2 points per minute</strong>.<br/>
-            No points if time runs out completely.
+            Tap <strong style={{color:'#c4a63a'}}>💡 Show Key Concepts</strong> for hints — costs <strong style={{color:'#e05c5c'}}>−3 points</strong>.
           </p>
         </div>
         <div className="btn-row">
@@ -767,11 +734,11 @@ function App(){
         </div>
         <div className="spin-player">{players[current]?players[current].name:'...'}'s turn — spin the wheel!</div>
         {landedCat!==null
-          ? <div className="cat-reveal" style={{background:CATS[landedCat].col}}>
+          ?<div className="cat-reveal" style={{background:CATS[landedCat].col}}>
               <div className="cat-reveal-emoji">{CATS[landedCat].emoji}</div>
               <div className="cat-reveal-name">{CATS[landedCat].name}</div>
             </div>
-          : <button className="btn btn-gold" onClick={spinWheel} disabled={spinning}>{spinning?'🎡 Spinning…':'🎡 Spin the Wheel!'}</button>
+          :<button className="btn btn-gold" onClick={spinWheel} disabled={spinning}>{spinning?'🎡 Spinning…':'🎡 Spin the Wheel!'}</button>
         }
       </div>
 
@@ -783,19 +750,13 @@ function App(){
               <div className="qpc-name">{p.name}</div>
               <div className="qpc-pts">{p.total}</div>
               <div className="cat-dots">
-                {CATS.map(c=>(
-                  <div key={c.id} className={`cat-dot${(p.cats[c.id]||0)>0?' earned':''}`} style={{background:c.col}} title={c.name+': '+(p.cats[c.id]||0)+' pts'}/>
-                ))}
+                {CATS.map(c=><div key={c.id} className={`cat-dot${(p.cats[c.id]||0)>0?' earned':''}`} style={{background:c.col}}/>)}
               </div>
             </div>
           ))}
         </div>
         <div className="q-topbar">
-          {currentQ&&(
-            <div className="cat-badge" style={{background:CATS[currentQ.cat].col}}>
-              {CATS[currentQ.cat].emoji} {CATS[currentQ.cat].name}
-            </div>
-          )}
+          {currentQ&&<div className="cat-badge" style={{background:CATS[currentQ.cat].col}}>{CATS[currentQ.cat].emoji} {CATS[currentQ.cat].name}</div>}
           <div className="timer-wrap">
             <svg className="timer-svg" viewBox="0 0 72 72">
               <circle className="timer-bg" cx="36" cy="36" r="30"/>
@@ -805,7 +766,7 @@ function App(){
           </div>
         </div>
         <div className="timer-status">
-          <span className="ts-label">⏱️ Answer now for:</span>
+          <span style={{color:'#aaa',fontSize:'.82rem'}}>⏱️ Answer now for:</span>
           <span style={{fontWeight:700,color:inFullPtZone?'#5aab6a':'#c4a63a'}}>
             {inFullPtZone?'🟢 Full 10 points!':'🟡 '+currentPts+' points (decaying)'}
           </span>
@@ -820,30 +781,38 @@ function App(){
           <div className="how-would">❓ How would you answer this?</div>
           <div className="q-text">{currentQ?currentQ.q:''}</div>
         </div>
+
+        {/* HINT SECTION */}
+        <div className="hint-bar">
+          {!hintShown?(
+            <button className="hint-btn" onClick={showHint} disabled={submitDisabled}>
+              💡 Show Key Concepts — costs −{HINT_PENALTY} points
+            </button>
+          ):(
+            <div className="hint-box">
+              <h4>💡 Key Concepts to Cover <span style={{color:'#e05c5c',fontWeight:700'}}>(−{HINT_PENALTY} pts deducted)</span></h4>
+              {currentQ&&currentQ.hints.map((h,i)=>(
+                <div key={i} className="hint-concept">
+                  <span className="hint-concept-icon">{'①②③'[i]||'•'}</span>
+                  <span>{h}</span>
+                </div>
+              ))}
+              <div className="hint-penalty">Hint penalty of −{HINT_PENALTY} points has been applied to your score.</div>
+            </div>
+          )}
+        </div>
+
         <div className="ans-area">
           <div className="mic-row">
-            <textarea
-              value={answer}
-              onChange={e=>setAnswer(e.target.value)}
-              disabled={submitDisabled}
-              placeholder={micSupported?"Type your answer here — or tap 🎤 to speak it…":"Type your LDS apologetic response here…"}
-            />
+            <textarea value={answer} onChange={e=>setAnswer(e.target.value)} disabled={submitDisabled}
+              placeholder={micSupported?"Type your answer here — or tap 🎤 to speak it…":"Type your LDS apologetic response here…"}/>
             {micSupported&&(
-              <button
-                className={`mic-btn${listening?' listening':''}`}
-                onClick={toggleMic}
-                disabled={submitDisabled}
-                title={listening?'Stop listening':'Start voice input'}
-              >
+              <button className={`mic-btn${listening?' listening':''}`} onClick={toggleMic} disabled={submitDisabled} title={listening?'Stop listening':'Start voice input'}>
                 {listening?'⏹':'🎤'}
               </button>
             )}
           </div>
-          {micSupported&&(
-            <div className={`mic-status${listening?' active':micStatus.startsWith('✅')?' done':''}`}>
-              {micStatus}
-            </div>
-          )}
+          {micSupported&&<div className={`mic-status${listening?' active':micStatus.startsWith('✅')?' done':''}`}>{micStatus}</div>}
           <div className="btn-row">
             <button className="btn btn-gold" disabled={submitDisabled} onClick={submitAnswer}>{submitLabel}</button>
             <button className="btn btn-red" onClick={skipQuestion}>⏭️ Skip / Pass</button>
@@ -859,8 +828,7 @@ function App(){
         {bonusOpts.map((o,i)=>(
           <button key={i}
             className={`scr-opt${bonusPicked===i?(o.correct?' correct':' wrong'):''}${bonusPicked!==null&&o.correct?' correct':''}`}
-            disabled={bonusPicked!==null}
-            onClick={()=>pickBonus(i)}>
+            disabled={bonusPicked!==null} onClick={()=>pickBonus(i)}>
             📖 {o.ref}
           </button>
         ))}
@@ -890,9 +858,7 @@ function App(){
             <div key={c.id} className="cat-row">
               <span>{c.emoji} {c.name}</span>
               <span style={{display:'flex',gap:6}}>
-                {players.map((p,i)=>(
-                  <span key={i} style={{color:c.col,fontWeight:700}}>{p.cats[c.id]||0}</span>
-                ))}
+                {players.map((p,i)=><span key={i} style={{color:c.col,fontWeight:700}}>{p.cats[c.id]||0}</span>)}
               </span>
             </div>
           ))}
@@ -903,7 +869,7 @@ function App(){
       {/* ADMIN */}
       <div className={`screen${screen==='admin'?' active':''}`} style={{background:'linear-gradient(135deg,#1a1a2e,#16213e)'}}>
         <div style={{fontSize:'2rem',fontWeight:900,color:'#ffd700',marginBottom:18}}>⚙️ Admin Panel</div>
-        <div className="card" style={{maxWidth:680}}>
+        <div className="card" style={{maxWidth:700}}>
           <h2>Add New Question</h2>
           <label className="admin-label">Category</label>
           <select value={adminQ.cat} onChange={e=>setAdminQ(q=>({...q,cat:parseInt(e.target.value)}))}>
@@ -911,8 +877,14 @@ function App(){
           </select>
           <label className="admin-label">Anti-Mormon Statement</label>
           <textarea value={adminQ.q} onChange={e=>setAdminQ(q=>({...q,q:e.target.value}))} style={{minHeight:80}}/>
-          <label className="admin-label">LDS Apologetic Answer</label>
+          <label className="admin-label">LDS Apologetic Answer (full)</label>
           <textarea value={adminQ.ans} onChange={e=>setAdminQ(q=>({...q,ans:e.target.value}))} style={{minHeight:80}}/>
+          <label className="admin-label">Key Concept Hint 1</label>
+          <input value={adminQ.h1} onChange={e=>setAdminQ(q=>({...q,h1:e.target.value}))} placeholder="First core point a player should mention"/>
+          <label className="admin-label">Key Concept Hint 2</label>
+          <input value={adminQ.h2} onChange={e=>setAdminQ(q=>({...q,h2:e.target.value}))} placeholder="Second core point"/>
+          <label className="admin-label">Key Concept Hint 3</label>
+          <input value={adminQ.h3} onChange={e=>setAdminQ(q=>({...q,h3:e.target.value}))} placeholder="Third core point"/>
           <label className="admin-label">Correct Scripture Reference</label>
           <input value={adminQ.scr} onChange={e=>setAdminQ(q=>({...q,scr:e.target.value}))} placeholder="e.g. Acts 10:34"/>
           <label className="admin-label">Scripture Note</label>
@@ -926,11 +898,12 @@ function App(){
               if(!adminQ.q||!adminQ.ans){alert('Question and answer required.');return;}
               setQs(prev=>[...prev,{
                 id:Date.now(),cat:adminQ.cat,q:adminQ.q,ans:adminQ.ans,
+                hints:[adminQ.h1||'Main apologetic principle',adminQ.h2||'Supporting evidence',adminQ.h3||'Church acknowledgment'],
                 scr:adminQ.scr||'Genesis 1:1',scrN:adminQ.scrN||'',
                 wrong:[adminQ.w1||'John 3:16',adminQ.w2||'Romans 8:28'],
               }]);
               setAdminMsg('✅ Question added! Total: '+(qs.length+1));
-              setAdminQ({cat:0,q:'',ans:'',scr:'',scrN:'',w1:'',w2:''});
+              setAdminQ({cat:0,q:'',ans:'',scr:'',scrN:'',w1:'',w2:'',h1:'',h2:'',h3:''});
             }}>➕ Add Question</button>
             <button className="btn btn-red" onClick={()=>setScreen('setup')}>← Back to Setup</button>
           </div>
