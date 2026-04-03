@@ -360,7 +360,9 @@ function App(){
     const tgt=avail[Math.floor(Math.random()*avail.length)];
     const n=CATS.length,arc=Math.PI*2/n;
     const extra=(8+Math.floor(Math.random()*5))*Math.PI*2;
-    const finalAngle=-Math.PI/2-arc/2-tgt*arc+extra;
+    // Random offset within the slice (keeping 15% padding from edges so pointer is clearly inside)
+    const sliceRandom=(Math.random()*.7+.15)*arc;
+    const finalAngle=-Math.PI/2-tgt*arc-sliceRandom+extra;
     const startA=wheelAngle,dur=3800,t0=performance.now();
     const step=(ts)=>{
       let t=(ts-t0)/dur;if(t>1)t=1;
