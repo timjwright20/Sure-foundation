@@ -790,7 +790,7 @@ function App(){
             </button>
           ):(
             <div className="hint-box">
-              <h4>💡 Key Concepts to Cover <span style={{color:'#e05c5c',fontWeight:700'}}>(−{HINT_PENALTY} pts deducted)</span></h4>
+              <h4>💡 Key Concepts to Cover <span style={{color:'#e05c5c',fontWeight:700}}>(−{HINT_PENALTY} pts deducted)</span></h4>
               {currentQ&&currentQ.hints.map((h,i)=>(
                 <div key={i} className="hint-concept">
                   <span className="hint-concept-icon">{'①②③'[i]||'•'}</span>
