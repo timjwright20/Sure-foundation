@@ -540,7 +540,7 @@ function App(){
     setFeedback({
       emoji,ptsText:pts>0?'+'+pts+' points!':'0 points',ptsCol,
       text:fbText+(hintPenaltyApplied?' (−'+HINT_PENALTY+' hint penalty already applied)':''),
-      apol:currentQ.ans,scr:currentQ.scr+' — '+currentQ.scrN,
+      apol:currentQ.ans,scr:'',
       onClose:()=>{
         setFeedback(null);
         if(pts>0){showBonus();}
@@ -580,7 +580,7 @@ function App(){
       });
     } else {
       setFeedback({emoji:'⏭️',ptsText:'0 pts',ptsCol:'#aaa',text:'No points awarded.',
-        apol:currentQ.ans,scr:currentQ.scr+' — '+currentQ.scrN,
+        apol:currentQ.ans,scr:'',
         onClose:()=>{setFeedback(null);advanceTurn();},
       });
     }
