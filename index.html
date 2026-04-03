@@ -436,13 +436,7 @@ function App(){
   const showHint=()=>{
     if(hintShown)return;
     setHintShown(true);
-    if(!hintPenaltyApplied){
-      setHintPenaltyApplied(true);
-      setPlayers(prev=>prev.map((p,i)=>{
-        if(i!==current)return p;
-        return{...p,total:Math.max(0,p.total-HINT_PENALTY)};
-      }));
-    }
+    setHintPenaltyApplied(true);
   };
 
   const spinWheel=()=>{
@@ -512,7 +506,7 @@ function App(){
   const submitAnswer=async()=>{
     if(!answer.trim())return;
     clearInterval(timerRef.current);stopMic();
-    const ts=getTimeScore();
+    const ts=Math.min(getTimeScore(), hintPenaltyApplied ? 10-HINT_PENALTY : 10);
     setSubmitDisabled(true);setSubmitLabel('⏳ Evaluating…');
     let rating='wrong',fbText='';
     try{
@@ -539,7 +533,7 @@ function App(){
     const sq=stealQueue;
     setFeedback({
       emoji,ptsText:pts>0?'+'+pts+' points!':'0 points',ptsCol,
-      text:fbText+(hintPenaltyApplied?' (−'+HINT_PENALTY+' hint penalty already applied)':''),
+      text:fbText+(hintPenaltyApplied?' (max 7 pts — hint used)':''),
       apol:currentQ.ans,scr:'',
       onClose:()=>{
         setFeedback(null);
